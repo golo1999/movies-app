@@ -8,9 +8,9 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamsList } from "../routes/myStackNavigator";
 
 // Components
-import CustomButton from "./Button";
-import CustomInput from "./Input";
-import CustomText from "./Text";
+import CustomButton from "./UI/Button";
+import CustomInput from "./UI/Input";
+import CustomText from "./UI/Text";
 
 // Variables
 import {

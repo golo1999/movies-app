@@ -1,13 +1,15 @@
 import { Dimensions, StyleProp, TextStyle, ViewStyle } from "react-native";
 
-export const colors = {
+export const APP_NAME: string = `MoviesApp`;
+
+export const COLORS = {
   PRIMARY: `#003f5c`,
   SECONDARY: `#fb5b5a`,
   TERTIARY: `#465881`,
 };
 
 export const authenticationButtonStyle: StyleProp<ViewStyle> = {
-  backgroundColor: colors.SECONDARY,
+  backgroundColor: COLORS.SECONDARY,
   borderRadius:
     Math.round(
       Dimensions.get("window").width + Dimensions.get("window").height
@@ -19,7 +21,7 @@ export const authenticationButtonTextStyle: StyleProp<TextStyle> = {
 };
 
 export const authenticationInputStyle: StyleProp<ViewStyle> = {
-  backgroundColor: colors.TERTIARY,
+  backgroundColor: COLORS.TERTIARY,
   borderRadius:
     Math.round(
       Dimensions.get("window").width + Dimensions.get("window").height

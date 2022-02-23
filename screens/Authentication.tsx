@@ -8,7 +8,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 
 // Variables
-import { colors } from "../themes/variables";
+import { APP_NAME as appName, COLORS } from "../themes/variables";
 
 const Authentication = () => {
   const [authenticationType, setAuthenticationType] = useState("LOGIN");
@@ -35,7 +35,7 @@ const Authentication = () => {
 
   return (
     <View style={authenticationStyles.container}>
-      <Text style={authenticationStyles.logo}>MoviesApp</Text>
+      <Text style={authenticationStyles.logo}>{appName}</Text>
       {selectedAuthenticationType}
     </View>
   );
@@ -52,7 +52,7 @@ const authenticationStyles = StyleSheet.create({
     margin: 32,
   },
   logo: {
-    color: colors.SECONDARY,
+    color: COLORS.SECONDARY,
     fontSize: 50,
     fontWeight: `bold`,
     marginBottom: 40,

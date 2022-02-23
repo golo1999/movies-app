@@ -27,7 +27,7 @@ const CustomButton = ({ onPress, style, text, textStyle }: Props) => {
 
 const buttonStyle = StyleSheet.create({
   button: { padding: 8 },
-  text: { fontSize: 16, textAlign: `center` },
+  text: { fontSize: 16, fontWeight: `bold`, textAlign: `center` },
 });
 
 export default CustomButton;

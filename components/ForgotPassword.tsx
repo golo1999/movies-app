@@ -3,9 +3,9 @@ import React from "react";
 import { GestureResponderEvent, StyleSheet, Text, View } from "react-native";
 
 // Components
-import CustomButton from "./Button";
-import CustomInput from "./Input";
-import CustomText from "./Text";
+import CustomButton from "./UI/Button";
+import CustomInput from "./UI/Input";
+import CustomText from "./UI/Text";
 
 // Variables
 import {

@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
+// Standard packages
+import React, { useEffect } from "react";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
+// Redux
+import { fetchMoviesList } from "../store/movies-list-actions";
+import { moviesListActions } from "../store/movies-list-slice";
+
+// Components
 import MoviesList from "../components/MoviesList";
 
+// Models
+import { Movie } from "../models/Movie";
+
 const Movies = () => {
-  const [pageIsLoading, setPageIsLoading] = useState(true);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setPageIsLoading(false);
-    }, 1000);
+    dispatch(moviesListActions.clearMoviesList());
+    dispatch(fetchMoviesList());
+  }, [dispatch]);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  return (
-    <>
-      {pageIsLoading && (
-        <View>
-          <Text>Fetching data...</Text>
-        </View>
-      )}
-      {!pageIsLoading && <MoviesList />}
-    </>
+  const moviesList: Movie[] = useSelector(
+    (state: RootStateOrAny) => state.moviesList.moviesList
   );
+
+  return <MoviesList moviesList={moviesList} />;
 };
 
 export default Movies;

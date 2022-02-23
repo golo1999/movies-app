@@ -10,7 +10,7 @@ import Movies from "../screens/Movies";
 import Registration from "../screens/Registration";
 
 // Variables
-import { colors } from "../themes/variables";
+import { COLORS } from "../themes/variables";
 
 export type RootStackParamsList = {
   Authentication: undefined;
@@ -26,7 +26,7 @@ export const MyStackNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Authentication"
-        screenOptions={{ contentStyle: { backgroundColor: colors.PRIMARY } }}
+        screenOptions={{ contentStyle: { backgroundColor: COLORS.PRIMARY } }}
       >
         <Stack.Screen name="Authentication" component={Authentication} />
         <Stack.Screen name="MovieDetails" component={MovieDetails} />
