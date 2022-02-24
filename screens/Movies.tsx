@@ -7,7 +7,7 @@ import { fetchMoviesList } from "../store/movies-list-actions";
 import { moviesListActions } from "../store/movies-list-slice";
 
 // Components
-import MoviesList from "../components/MoviesList";
+import MoviesList from "../components/MoviesList/MoviesList";
 
 // Models
 import { Movie } from "../models/Movie";

@@ -1,23 +1,23 @@
 export class Movie {
   id: string;
-  image: string;
-  genresList: string[];
+  large_cover_image: string;
+  genres: string[];
   rating: number;
   runtime: number;
-  summary: string;
+  synopsis: string;
   title: string;
-  uploadDate: string;
+  date_uploaded: string;
   year: number;
 
   constructor(movieResponse: any) {
     this.id = movieResponse.id;
-    this.image = movieResponse.background_image;
-    this.genresList = movieResponse.genres;
+    this.large_cover_image = movieResponse.large_cover_image;
+    this.genres = movieResponse.genres;
     this.rating = movieResponse.rating;
     this.runtime = movieResponse.runtime;
-    this.summary = movieResponse.summary;
+    this.synopsis = movieResponse.synopsis;
     this.title = movieResponse.title;
-    this.uploadDate = movieResponse.date_uploaded;
+    this.date_uploaded = movieResponse.date_uploaded;
     this.year = movieResponse.year;
   }
 }

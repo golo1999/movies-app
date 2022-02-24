@@ -3,9 +3,9 @@ import React from "react";
 import { GestureResponderEvent, StyleSheet, Text, View } from "react-native";
 
 // Components
-import CustomButton from "./UI/Button";
-import CustomInput from "./UI/Input";
-import CustomText from "./UI/Text";
+import CustomButton from "../UI/Button";
+import CustomInput from "../UI/Input";
+import CustomText from "../UI/Text";
 
 // Variables
 import {
@@ -14,7 +14,7 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
-} from "../themes/variables";
+} from "../../themes/variables";
 
 type Props = { logInHandler: (event: GestureResponderEvent) => void };
 

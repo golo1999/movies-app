@@ -1,19 +1,40 @@
 // Standard packages
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useDispatch } from "react-redux";
+
+// Redux
+import { selectedMovieActions } from "../../store/selected-movie-slice";
+
+// Navigation
+import { RootStackParamsList } from "../../routes/myStackNavigator";
+
+// Components
+import MoviesListItem from "./MoviesListItem";
 
 // Models
-import { Movie } from "../models/Movie";
+import { Movie } from "../../models/Movie";
 
 // Variables
-import { COLORS } from "../themes/variables";
+import { COLORS } from "../../themes/variables";
 
 type Props = { moviesList: Movie[] };
+
+type MovieDetailsScreenProp = NativeStackNavigationProp<
+  RootStackParamsList,
+  `MovieDetails`
+>;
 
 const MoviesList = ({ moviesList }: Props) => {
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
   const [numberOfMovies, setNumberOfMovies] = useState(-1);
+
+  const navigation = useNavigation<MovieDetailsScreenProp>();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -52,6 +73,14 @@ const MoviesList = ({ moviesList }: Props) => {
     }
   }, [listSuccessfullyRetrieved, pageIsLoading]);
 
+  const moviePressHandler = (movie: Movie) => {
+    if (movie) {
+      dispatch(selectedMovieActions.clearSelectedMovie());
+      dispatch(selectedMovieActions.setSelectedMovie({ selectedMovie: movie }));
+      navigation.navigate(`MovieDetails`);
+    }
+  };
+
   return (
     <>
       {pageIsLoading && (
@@ -60,8 +89,19 @@ const MoviesList = ({ moviesList }: Props) => {
         </View>
       )}
       {!pageIsLoading && (
-        <View>
-          <Text>MoviesList</Text>
+        <View style={moviesListStyles.container}>
+          <FlatList
+            contentContainerStyle={moviesListStyles.moviesList}
+            data={moviesList}
+            numColumns={2}
+            renderItem={({ item: movie }) => (
+              <MoviesListItem
+                movie={movie}
+                onPress={() => moviePressHandler(movie)}
+                style={moviesListStyles.moviesListItem}
+              />
+            )}
+          />
         </View>
       )}
     </>
@@ -71,10 +111,20 @@ const MoviesList = ({ moviesList }: Props) => {
 export default MoviesList;
 
 const moviesListStyles = StyleSheet.create({
+  container: { flex: 1 },
   loadingContainer: {
     alignItems: `center`,
     flex: 1,
     justifyContent: `center`,
   },
   loadingText: { color: COLORS.SECONDARY, fontSize: 24 },
+  moviesList: {
+    alignItems: `flex-start`,
+    display: `flex`,
+  },
+  moviesListItem: {
+    alignItems: `center`,
+    padding: 10,
+    justifyContent: `center`,
+  },
 });

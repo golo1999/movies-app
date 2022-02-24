@@ -5,12 +5,12 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // Navigation
-import { RootStackParamsList } from "../routes/myStackNavigator";
+import { RootStackParamsList } from "../../routes/myStackNavigator";
 
 // Components
-import CustomButton from "./UI/Button";
-import CustomInput from "./UI/Input";
-import CustomText from "./UI/Text";
+import CustomButton from "../UI/Button";
+import CustomInput from "../UI/Input";
+import CustomText from "../UI/Text";
 
 // Variables
 import {
@@ -19,7 +19,7 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
-} from "../themes/variables";
+} from "../../themes/variables";
 
 type Props = {
   forgotPasswordHandler(): void;

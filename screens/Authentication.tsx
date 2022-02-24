@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 // Components
-import ForgotPassword from "../components/ForgotPassword";
-import Login from "../components/Login";
-import Register from "../components/Register";
+import ForgotPassword from "../components/Authentication/ForgotPassword";
+import Login from "../components/Authentication/Login";
+import Register from "../components/Authentication/Register";
 
 // Variables
 import { APP_NAME as appName, COLORS } from "../themes/variables";
