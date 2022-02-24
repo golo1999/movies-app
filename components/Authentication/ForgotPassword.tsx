@@ -14,13 +14,15 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
+  COLORS,
 } from "../../themes/variables";
 
-type Props = { logInHandler: (event: GestureResponderEvent) => void };
+type Props = {
+  resetPasswordHandler: (event: GestureResponderEvent) => void;
+  logInHandler: (event: GestureResponderEvent) => void;
+};
 
-const ForgotPassword = ({ logInHandler }: Props) => {
-  const forgotPasswordHandler = () => {};
-
+const ForgotPassword = ({ logInHandler, resetPasswordHandler }: Props) => {
   return (
     <View>
       <CustomInput
@@ -34,10 +36,11 @@ const ForgotPassword = ({ logInHandler }: Props) => {
         ]}
       />
       <CustomButton
-        onPress={forgotPasswordHandler}
+        onPress={resetPasswordHandler}
         style={[authenticationButtonStyle, forgotPasswordStyles.resetButton]}
         text="Reset"
         textStyle={authenticationButtonTextStyle}
+        underlayColor={COLORS.TERTIARY}
       />
       <CustomText
         onPress={logInHandler}

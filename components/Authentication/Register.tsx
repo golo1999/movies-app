@@ -14,15 +14,15 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
+  COLORS,
 } from "../../themes/variables";
 
 type Props = {
   logInHandler: (event: GestureResponderEvent) => void;
+  registerHandler: (event: GestureResponderEvent) => void;
 };
 
-const Register = ({ logInHandler }: Props) => {
-  const registerHandler = () => {};
-
+const Register = ({ logInHandler, registerHandler }: Props) => {
   return (
     <View>
       <CustomInput
@@ -61,6 +61,7 @@ const Register = ({ logInHandler }: Props) => {
         style={[authenticationButtonStyle, registerStyles.registerButton]}
         text="Register"
         textStyle={authenticationButtonTextStyle}
+        underlayColor={COLORS.TERTIARY}
       />
       <CustomText
         onPress={logInHandler}

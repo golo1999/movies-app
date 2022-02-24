@@ -2,10 +2,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 // Redux
+import authSlice from "./auth-slice";
 import moviesListSlice from "./movies-list-slice";
 import selectedMovieSlice from "./selected-movie-slice";
 
 const reducersList = combineReducers({
+  auth: authSlice.reducer,
   moviesList: moviesListSlice.reducer,
   selectedMovie: selectedMovieSlice.reducer,
 });

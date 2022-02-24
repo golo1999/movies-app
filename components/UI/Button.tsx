@@ -15,11 +15,22 @@ type Props = {
   style: StyleProp<ViewStyle>;
   text: string;
   textStyle: StyleProp<TextStyle>;
+  underlayColor?: string;
 };
 
-const CustomButton = ({ onPress, style, text, textStyle }: Props) => {
+const CustomButton = ({
+  onPress,
+  style,
+  text,
+  textStyle,
+  underlayColor,
+}: Props) => {
   return (
-    <TouchableHighlight onPress={onPress} style={[style, buttonStyle.button]}>
+    <TouchableHighlight
+      onPress={onPress}
+      style={[style, buttonStyle.button]}
+      underlayColor={underlayColor}
+    >
       <Text style={[textStyle, buttonStyle.text]}>{text}</Text>
     </TouchableHighlight>
   );

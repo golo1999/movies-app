@@ -19,6 +19,7 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
+  COLORS,
 } from "../../themes/variables";
 
 type Props = {
@@ -35,7 +36,7 @@ const Login = ({ forgotPasswordHandler, registerHandler }: Props) => {
   const navigation = useNavigation<MoviesScreenProp>();
 
   const logInHandler = () => {
-    navigation.navigate("Movies");
+    navigation.pop();
   };
 
   return (
@@ -74,6 +75,7 @@ const Login = ({ forgotPasswordHandler, registerHandler }: Props) => {
         style={[authenticationButtonStyle, loginStyles.loginButton]}
         text="Log in"
         textStyle={authenticationButtonTextStyle}
+        underlayColor={COLORS.TERTIARY}
       />
       <CustomText
         onPress={registerHandler}

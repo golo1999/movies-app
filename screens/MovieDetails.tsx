@@ -7,6 +7,9 @@ import { RootStateOrAny, useSelector } from "react-redux";
 // Models
 import { Movie } from "../models/Movie";
 
+// Methods
+import { getFormattedMovieGenresList } from "../themes/methods";
+
 // Variables
 import { COLORS } from "../themes/variables";
 
@@ -20,7 +23,7 @@ const MovieDetails = () => {
   const formattedMovieRuntime = `${selectedMovie.runtime} minutes`;
 
   return (
-    <ScrollView contentContainerStyle={movieDetailsStyle.mainContainer}>
+    <ScrollView contentContainerStyle={[movieDetailsStyle.mainContainer]}>
       <Image
         resizeMode="stretch"
         source={{ uri: selectedMovie.large_cover_image }}
@@ -52,11 +55,9 @@ const MovieDetails = () => {
           <Text style={[movieDetailsStyle.heading, { marginBottom: 4 }]}>
             Genres
           </Text>
-          {selectedMovie.genres.map((genre, index) => (
-            <Text key={`genre-${index}`} style={movieDetailsStyle.text}>
-              {genre}
-            </Text>
-          ))}
+          <Text style={[movieDetailsStyle.text, { fontStyle: `italic` }]}>
+            {getFormattedMovieGenresList(selectedMovie.genres)}
+          </Text>
         </View>
         <View style={[{ marginVertical: 8 }]}>
           <Text style={movieDetailsStyle.heading}>Runtime</Text>

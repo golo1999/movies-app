@@ -13,6 +13,14 @@ import { APP_NAME as appName, COLORS } from "../themes/variables";
 const Authentication = () => {
   const [authenticationType, setAuthenticationType] = useState("LOGIN");
 
+  const resetPasswordHandler = () => {
+    switchAuthenticationType("LOGIN");
+  };
+
+  const registerHandler = () => {
+    switchAuthenticationType("LOGIN");
+  };
+
   const selectedAuthenticationType =
     authenticationType === `LOGIN` ? (
       <Login
@@ -22,9 +30,15 @@ const Authentication = () => {
         registerHandler={() => switchAuthenticationType("REGISTER")}
       />
     ) : authenticationType === `REGISTER` ? (
-      <Register logInHandler={() => switchAuthenticationType("LOGIN")} />
+      <Register
+        logInHandler={() => switchAuthenticationType("LOGIN")}
+        registerHandler={registerHandler}
+      />
     ) : (
-      <ForgotPassword logInHandler={() => switchAuthenticationType("LOGIN")} />
+      <ForgotPassword
+        logInHandler={() => switchAuthenticationType("LOGIN")}
+        resetPasswordHandler={resetPasswordHandler}
+      />
     );
 
   const switchAuthenticationType = (newAuthenticationType: string) => {

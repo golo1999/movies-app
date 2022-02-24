@@ -1,4 +1,5 @@
 // Standard packages
+import axios from "axios";
 import { Dispatch } from "redux";
 
 // Redux
@@ -10,9 +11,11 @@ import { Movie } from "../models/Movie";
 export const fetchMoviesList = () => {
   return async (dispatch: Dispatch) => {
     const fetchData = async () => {
-      const response = await fetch(`https://yts.mx/api/v2/list_movies.json`);
+      const response = await axios.get(
+        `https://yts.mx/api/v2/list_movies.json`
+      );
 
-      const data = await response.json();
+      const data = await response.data;
 
       return data;
     };

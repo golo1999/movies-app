@@ -1,6 +1,6 @@
 // Standard packages
 import React, { useEffect, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
@@ -72,6 +72,10 @@ const MoviesList = ({ moviesList }: Props) => {
       setPageIsLoading((previousValue) => !previousValue);
     }
   }, [listSuccessfullyRetrieved, pageIsLoading]);
+
+  const logInHandler = () => {
+    navigation.navigate("Authentication");
+  };
 
   const moviePressHandler = (movie: Movie) => {
     if (movie) {

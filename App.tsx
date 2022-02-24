@@ -8,6 +8,9 @@ import { store } from "./store";
 // Navigation
 import MyStackNavigator from "./routes/myStackNavigator";
 
+// Models
+import { User } from "./models/User";
+
 const App = () => {
   return (
     <Provider store={store}>

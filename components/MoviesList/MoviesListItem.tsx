@@ -14,6 +14,9 @@ import {
 // Models
 import { Movie } from "../../models/Movie";
 
+// Variables
+import { COLORS } from "../../themes/variables";
+
 type Props = {
   movie: Movie;
   onPress?: (event: GestureResponderEvent) => void;
@@ -25,6 +28,7 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
     <TouchableHighlight
       onPress={onPress}
       style={[style, moviesListItemStyles.container]}
+      underlayColor={COLORS.TERTIARY}
     >
       <View>
         <Image
