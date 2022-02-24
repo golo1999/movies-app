@@ -2,6 +2,7 @@
 import React from "react";
 import {
   GestureResponderEvent,
+  Image,
   StyleProp,
   StyleSheet,
   Text,
@@ -25,7 +26,26 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
       onPress={onPress}
       style={[style, moviesListItemStyles.container]}
     >
-      <Text style={moviesListItemStyles.title}>{movie.title}</Text>
+      <View>
+        <Image
+          resizeMode="stretch"
+          source={{ uri: movie.large_cover_image }}
+          style={[{ aspectRatio: 1, height: undefined, width: `100%` }]}
+        />
+        <Text
+          style={[
+            moviesListItemStyles.title,
+            {
+              color: `white`,
+              fontSize: 16,
+              fontWeight: `bold`,
+              marginVertical: 4,
+            },
+          ]}
+        >
+          {movie.title}
+        </Text>
+      </View>
     </TouchableHighlight>
   );
 };
@@ -35,7 +55,6 @@ export default MoviesListItem;
 const moviesListItemStyles = StyleSheet.create({
   container: {
     alignItems: `center`,
-    backgroundColor: `orange`,
     display: `flex`,
     flexDirection: `column`,
     width: `50%`,
