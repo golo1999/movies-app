@@ -12,6 +12,7 @@ type Props = {
       ? void
       : (e: string | React.ChangeEvent<any>) => void;
   };
+  onBlur?: (e: any) => void;
   placeholder?: string;
   placeholderTextColor?: string;
   reference?: MutableRefObject<TextInput>;
@@ -23,6 +24,7 @@ type Props = {
 const CustomInput = ({
   cursorColor,
   onChangeText,
+  onBlur,
   placeholder,
   placeholderTextColor,
   reference,
@@ -33,6 +35,7 @@ const CustomInput = ({
   return (
     <TextInput
       onChangeText={onChangeText}
+      onBlur={onBlur}
       placeholder={placeholder}
       placeholderTextColor={placeholderTextColor}
       ref={reference}

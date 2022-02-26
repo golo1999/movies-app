@@ -8,37 +8,36 @@ import Login from "../components/Authentication/Login";
 import Register from "../components/Authentication/Register";
 
 // Variables
-import { APP_NAME as appName, COLORS } from "../themes/variables";
+import { APP_NAME as appName } from "../themes/variables";
+
+// Stylings
+import authenticationStyles from "../styles/authentication-styles";
 
 const Authentication = () => {
   const [authenticationType, setAuthenticationType] = useState("LOGIN");
 
-  const resetPasswordHandler = () => {
+  const redirectToForgotPasswordHandler = () => {
+    switchAuthenticationType("FORGOT_PASSWORD");
+  };
+
+  const redirectToLoginHandler = () => {
     switchAuthenticationType("LOGIN");
   };
 
-  const registerHandler = () => {
-    switchAuthenticationType("LOGIN");
+  const redirectToRegisterHandler = () => {
+    switchAuthenticationType("REGISTER");
   };
 
   const selectedAuthenticationType =
     authenticationType === `LOGIN` ? (
       <Login
-        forgotPasswordHandler={() =>
-          switchAuthenticationType("FORGOT_PASSWORD")
-        }
-        registerHandler={() => switchAuthenticationType("REGISTER")}
+        redirectToForgotPasswordHandler={redirectToForgotPasswordHandler}
+        redirectToRegisterHandler={redirectToRegisterHandler}
       />
     ) : authenticationType === `REGISTER` ? (
-      <Register
-        logInHandler={() => switchAuthenticationType("LOGIN")}
-        registerHandler={registerHandler}
-      />
+      <Register redirectToLoginHandler={redirectToLoginHandler} />
     ) : (
-      <ForgotPassword
-        logInHandler={() => switchAuthenticationType("LOGIN")}
-        resetPasswordHandler={resetPasswordHandler}
-      />
+      <ForgotPassword redirectToLoginHandler={redirectToLoginHandler} />
     );
 
   const switchAuthenticationType = (newAuthenticationType: string) => {
@@ -56,20 +55,3 @@ const Authentication = () => {
 };
 
 export default Authentication;
-
-const authenticationStyles = StyleSheet.create({
-  container: {
-    display: `flex`,
-    flex: 1,
-    flexDirection: `column`,
-    justifyContent: `center`,
-    margin: 32,
-  },
-  logo: {
-    color: COLORS.SECONDARY,
-    fontSize: 50,
-    fontWeight: `bold`,
-    marginBottom: 40,
-    textAlign: `center`,
-  },
-});

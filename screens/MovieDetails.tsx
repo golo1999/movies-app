@@ -18,57 +18,78 @@ const MovieDetails = () => {
     (state: RootStateOrAny) => state.selectedMovie.selectedMovie
   );
 
-  const formattedMovieTitle = `${selectedMovie.title} (${selectedMovie.year})`;
+  const {
+    date_uploaded: dateUploaded,
+    genres: genresList,
+    large_cover_image: image,
+    rating,
+    runtime,
+    synopsis,
+    title,
+    year,
+  } = selectedMovie;
 
-  const formattedMovieRuntime = `${selectedMovie.runtime} minutes`;
+  const formattedMovieTitle = `${title} (${year})`;
+
+  const formattedMovieRuntime = `${runtime} minutes`;
 
   return (
     <ScrollView contentContainerStyle={[movieDetailsStyle.mainContainer]}>
-      <Image
-        resizeMode="stretch"
-        source={{ uri: selectedMovie.large_cover_image }}
-        style={movieDetailsStyle.image}
-      />
-      <View style={movieDetailsStyle.detailsContainer}>
-        <Text style={[movieDetailsStyle.heading, { marginBottom: 8 }]}>
-          {formattedMovieTitle}
-        </Text>
-        <StarRating
-          disabled
-          emptyStarColor={`gold`}
-          fullStarColor={`gold`}
-          maxStars={5}
-          rating={selectedMovie.rating / 2}
-          containerStyle={[{ marginVertical: 8 }]}
+      {typeof image === `string` && (
+        <Image
+          resizeMode="stretch"
+          source={{ uri: image }}
+          style={movieDetailsStyle.image}
         />
-        {selectedMovie.synopsis !== `` && (
+      )}
+      <View style={movieDetailsStyle.detailsContainer}>
+        {typeof title === `string` && (
+          <Text style={[movieDetailsStyle.heading, { marginBottom: 8 }]}>
+            {formattedMovieTitle}
+          </Text>
+        )}
+        {typeof rating === `number` && (
+          <StarRating
+            disabled
+            emptyStarColor={`gold`}
+            fullStarColor={`gold`}
+            maxStars={5}
+            rating={rating / 2}
+            containerStyle={[{ marginVertical: 8 }]}
+          />
+        )}
+        {typeof synopsis === `string` && synopsis !== `` && (
           <View style={[{ marginVertical: 8 }]}>
             <Text style={[movieDetailsStyle.heading, { marginBottom: 4 }]}>
               Synopsis
             </Text>
             <Text style={[movieDetailsStyle.text, { marginTop: 4 }]}>
-              {selectedMovie.synopsis}
+              {synopsis}
             </Text>
           </View>
         )}
-        <View style={[{ marginVertical: 8 }]}>
-          <Text style={[movieDetailsStyle.heading, { marginBottom: 4 }]}>
-            Genres
-          </Text>
-          <Text style={[movieDetailsStyle.text, { fontStyle: `italic` }]}>
-            {getFormattedMovieGenresList(selectedMovie.genres)}
-          </Text>
-        </View>
-        <View style={[{ marginVertical: 8 }]}>
-          <Text style={movieDetailsStyle.heading}>Runtime</Text>
-          <Text style={movieDetailsStyle.text}>{formattedMovieRuntime}</Text>
-        </View>
-        <View style={[{ marginVertical: 8 }]}>
-          <Text style={movieDetailsStyle.heading}>Upload date</Text>
-          <Text style={movieDetailsStyle.text}>
-            {selectedMovie.date_uploaded}
-          </Text>
-        </View>
+        {Array.isArray(genresList) && genresList.length > 0 && (
+          <View style={[{ marginVertical: 8 }]}>
+            <Text style={[movieDetailsStyle.heading, { marginBottom: 4 }]}>
+              Genres
+            </Text>
+            <Text style={[movieDetailsStyle.text, { fontStyle: `italic` }]}>
+              {getFormattedMovieGenresList(genresList)}
+            </Text>
+          </View>
+        )}
+        {typeof runtime === `number` && (
+          <View style={[{ marginVertical: 8 }]}>
+            <Text style={movieDetailsStyle.heading}>Runtime</Text>
+            <Text style={movieDetailsStyle.text}>{formattedMovieRuntime}</Text>
+          </View>
+        )}
+        {typeof dateUploaded === `string` && (
+          <View>
+            <Text style={movieDetailsStyle.heading}>Upload date</Text>
+            <Text style={movieDetailsStyle.text}>{dateUploaded}</Text>
+          </View>
+        )}
       </View>
     </ScrollView>
   );
