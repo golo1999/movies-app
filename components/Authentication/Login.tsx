@@ -1,4 +1,5 @@
 // Standard packages
+import { Formik } from "formik";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -32,57 +33,73 @@ type MoviesScreenProp = NativeStackNavigationProp<
   `Movies`
 >;
 
+type FormValues = { email: string; password: string };
+
 const Login = ({ forgotPasswordHandler, registerHandler }: Props) => {
   const navigation = useNavigation<MoviesScreenProp>();
 
-  const logInHandler = () => {
+  const initialValues: FormValues = { email: ``, password: `` };
+
+  const logInHandler = (values: FormValues) => {
+    console.log(values);
     navigation.pop();
   };
 
   return (
-    <View>
-      <CustomInput
-        cursorColor="white"
-        placeholder="Email"
-        placeholderTextColor="white"
-        style={[
-          authenticationInputStyle,
-          authenticationInputTextStyle,
-          loginStyles.input,
-        ]}
-      />
-      <CustomInput
-        cursorColor="white"
-        placeholder="Password"
-        placeholderTextColor="white"
-        style={[
-          authenticationInputStyle,
-          authenticationInputTextStyle,
-          loginStyles.input,
-        ]}
-        type="password"
-      />
-      <CustomText
-        onPress={forgotPasswordHandler}
-        style={[
-          authenticationRedirectTextStyle,
-          loginStyles.forgotPasswordText,
-        ]}
-        text="Forgot password?"
-      />
-      <CustomButton
-        onPress={logInHandler}
-        style={[authenticationButtonStyle, loginStyles.loginButton]}
-        text="Log in"
-        textStyle={authenticationButtonTextStyle}
-        underlayColor={COLORS.TERTIARY}
-      />
-      <CustomText
-        onPress={registerHandler}
-        style={[authenticationRedirectTextStyle, loginStyles.registerText]}
-        text="Register"
-      />
-    </View>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={(values) => logInHandler(values)}
+    >
+      {({ handleChange, handleSubmit, values }) => (
+        <View>
+          <CustomInput
+            cursorColor="white"
+            onChangeText={handleChange(`email`)}
+            placeholder="Email"
+            placeholderTextColor="white"
+            style={[
+              authenticationInputStyle,
+              authenticationInputTextStyle,
+              loginStyles.input,
+            ]}
+            value={values.email}
+          />
+          <CustomInput
+            cursorColor="white"
+            onChangeText={handleChange(`password`)}
+            placeholder="Password"
+            placeholderTextColor="white"
+            style={[
+              authenticationInputStyle,
+              authenticationInputTextStyle,
+              loginStyles.input,
+            ]}
+            type="password"
+            value={values.password}
+          />
+          <CustomText
+            onPress={forgotPasswordHandler}
+            style={[
+              authenticationRedirectTextStyle,
+              loginStyles.forgotPasswordText,
+            ]}
+            text="Forgot password?"
+          />
+          <CustomButton
+            onPress={() => handleSubmit()}
+            style={[authenticationButtonStyle, loginStyles.loginButton]}
+            text="Log in"
+            textStyle={authenticationButtonTextStyle}
+            underlayColor={COLORS.TERTIARY}
+          />
+          <CustomText
+            onPress={registerHandler}
+            style={[authenticationRedirectTextStyle, loginStyles.registerText]}
+            text="Register"
+          />
+        </View>
+      )}
+    </Formik>
   );
 };
 

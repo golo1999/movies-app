@@ -35,8 +35,8 @@ const MovieDetails = () => {
         </Text>
         <StarRating
           disabled
-          emptyStarColor={COLORS.SECONDARY}
-          fullStarColor={COLORS.SECONDARY}
+          emptyStarColor={`gold`}
+          fullStarColor={`gold`}
           maxStars={5}
           rating={selectedMovie.rating / 2}
           containerStyle={[{ marginVertical: 8 }]}
@@ -81,5 +81,5 @@ const movieDetailsStyle = StyleSheet.create({
   heading: { color: COLORS.SECONDARY, fontSize: 36, fontWeight: `bold` },
   image: { aspectRatio: 1, height: undefined, width: `100%` },
   mainContainer: {},
-  text: { color: COLORS.SECONDARY, fontSize: 16, textAlign: `justify` },
+  text: { color: `white`, fontSize: 16, textAlign: `justify` },
 });

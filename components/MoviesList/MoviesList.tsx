@@ -121,7 +121,7 @@ const moviesListStyles = StyleSheet.create({
     flex: 1,
     justifyContent: `center`,
   },
-  loadingText: { color: COLORS.SECONDARY, fontSize: 24 },
+  loadingText: { color: `white`, fontSize: 24 },
   moviesList: {
     alignItems: `flex-start`,
     display: `flex`,

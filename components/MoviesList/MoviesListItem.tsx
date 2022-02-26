@@ -37,6 +37,7 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
           style={[{ aspectRatio: 1, height: undefined, width: `100%` }]}
         />
         <Text
+          numberOfLines={1}
           style={[
             moviesListItemStyles.title,
             {

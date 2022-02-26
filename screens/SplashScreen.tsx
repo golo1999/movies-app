@@ -22,7 +22,7 @@ const SplashScreen = () => {
   const navigation = useNavigation<MoviesListScreenProp>();
 
   useEffect(() => {
-    const loadingTimer = setTimeout(() => navigation.replace("Movies"), 1000);
+    const loadingTimer = setTimeout(() => navigation.replace("Movies"), 1500);
 
     return () => clearTimeout(loadingTimer);
   }, []);
