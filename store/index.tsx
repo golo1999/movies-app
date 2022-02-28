@@ -13,5 +13,7 @@ const reducersList = combineReducers({
 });
 
 export const store = configureStore({
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ immutableCheck: false, serializableCheck: false }),
   reducer: reducersList,
 });

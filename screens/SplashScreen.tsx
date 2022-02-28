@@ -6,14 +6,14 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // Navigation
-import { RootStackParamsList } from "../routes/myStackNavigator";
+import { RootStackParamsList } from "../navigation/myStackNavigator";
 
 // Variables
 import { APP_NAME as appName, COLORS } from "../themes/variables";
 
 type MoviesListScreenProp = NativeStackNavigationProp<
   RootStackParamsList,
-  `Movies`
+  `MoviesDrawer`
 >;
 
 const SplashScreen = () => {
@@ -22,7 +22,10 @@ const SplashScreen = () => {
   const navigation = useNavigation<MoviesListScreenProp>();
 
   useEffect(() => {
-    const loadingTimer = setTimeout(() => navigation.replace("Movies"), 1500);
+    const loadingTimer = setTimeout(
+      () => navigation.replace("MoviesDrawer"),
+      1500
+    );
 
     return () => clearTimeout(loadingTimer);
   }, []);
@@ -35,6 +38,7 @@ const SplashScreen = () => {
         color={COLORS.SECONDARY}
         name="movie"
         iconStyle={{ fontSize: 50 }}
+        tvParallaxProperties={undefined}
       />
     </View>
   );
@@ -43,7 +47,12 @@ const SplashScreen = () => {
 export default SplashScreen;
 
 const splashScreenStyles = StyleSheet.create({
-  container: { alignItems: `center`, flex: 1, justifyContent: `center` },
+  container: {
+    alignItems: `center`,
+    backgroundColor: COLORS.PRIMARY,
+    flex: 1,
+    justifyContent: `center`,
+  },
   logo: {
     color: COLORS.SECONDARY,
     fontSize: 50,

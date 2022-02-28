@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { selectedMovieActions } from "../../store/selected-movie-slice";
 
 // Navigation
-import { RootStackParamsList } from "../../routes/myStackNavigator";
+import { RootStackParamsList } from "../../navigation/myStackNavigator";
 
 // Components
 import MoviesListItem from "./MoviesListItem";
@@ -115,9 +115,10 @@ const MoviesList = ({ moviesList }: Props) => {
 export default MoviesList;
 
 const moviesListStyles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: COLORS.PRIMARY },
   loadingContainer: {
     alignItems: `center`,
+    backgroundColor: COLORS.PRIMARY,
     flex: 1,
     justifyContent: `center`,
   },

@@ -101,6 +101,6 @@ const movieDetailsStyle = StyleSheet.create({
   detailsContainer: { margin: 16 },
   heading: { color: COLORS.SECONDARY, fontSize: 36, fontWeight: `bold` },
   image: { aspectRatio: 1, height: undefined, width: `100%` },
-  mainContainer: {},
+  mainContainer: { backgroundColor: COLORS.PRIMARY },
   text: { color: `white`, fontSize: 16, textAlign: `justify` },
 });

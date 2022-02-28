@@ -1,21 +1,18 @@
 // Standard packages
 import { Formik } from "formik";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import * as yup from "yup";
 
 // Navigation
-import { RootStackParamsList } from "../../routes/myStackNavigator";
+import { RootStackParamsList } from "../../navigation/myStackNavigator";
 
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import CustomText from "../UI/Text";
-
-// Methods
-import { emailIsValid } from "../../themes/methods";
 
 // Variables
 import {
@@ -38,16 +35,13 @@ type Props = {
 
 type MoviesScreenProp = NativeStackNavigationProp<
   RootStackParamsList,
-  `Movies`
+  `MoviesDrawer`
 >;
 
 type FormValues = { email: string; password: string };
 
 const loginSchema = yup.object({
-  email: yup
-    .string()
-    .required(`Email is required`)
-    .test(`email-valid`, `Email is not valid`, (value) => emailIsValid(value)),
+  email: yup.string().required(`Email is required`).email(`Email is not valid`),
   password: yup
     .string()
     .required(`Password is required`)
@@ -75,11 +69,11 @@ const Login = ({
     >
       {(formikProps) => (
         <View>
-          {formikProps.touched.email && formikProps.errors.email && (
-            <Text style={[globalStyles.errorText]}>
-              {formikProps.errors.email}
-            </Text>
-          )}
+          <Text style={[globalStyles.errorText]}>
+            {formikProps.touched.email &&
+              formikProps.errors.email &&
+              `${formikProps.errors.email}`}
+          </Text>
           <CustomInput
             cursorColor="white"
             onChangeText={formikProps.handleChange(`email`)}
@@ -93,11 +87,11 @@ const Login = ({
             ]}
             value={formikProps.values.email}
           />
-          {formikProps.touched.password && formikProps.errors.password && (
-            <Text style={[globalStyles.errorText]}>
-              {formikProps.errors.password}
-            </Text>
-          )}
+          <Text style={[globalStyles.errorText]}>
+            {formikProps.touched.password &&
+              formikProps.errors.password &&
+              `${formikProps.errors.password}`}
+          </Text>
           <CustomInput
             cursorColor="white"
             onChangeText={formikProps.handleChange(`password`)}

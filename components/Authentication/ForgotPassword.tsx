@@ -1,16 +1,13 @@
 // Standard packages
 import { Formik } from "formik";
 import React from "react";
-import { GestureResponderEvent, StyleSheet, Text, View } from "react-native";
+import { GestureResponderEvent, Text, View } from "react-native";
 import * as yup from "yup";
 
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import CustomText from "../UI/Text";
-
-// Methods
-import { emailIsValid } from "../../themes/methods";
 
 // Variables
 import {
@@ -33,10 +30,7 @@ type Props = {
 type FormValues = { email: string };
 
 const forgotPasswordSchema = yup.object({
-  email: yup
-    .string()
-    .required(`Email is required`)
-    .test(`email-valid`, `Email is not valid`, (value) => emailIsValid(value)),
+  email: yup.string().required(`Email is required`).email(`Email is not valid`),
 });
 
 const ForgotPassword = ({ redirectToLoginHandler }: Props) => {
@@ -54,11 +48,13 @@ const ForgotPassword = ({ redirectToLoginHandler }: Props) => {
       validationSchema={forgotPasswordSchema}
     >
       {(formikProps) => (
-        <View>
+        <View style={{ position: "relative" }}>
           {formikProps.touched.email && formikProps.errors.email && (
-            <Text style={[globalStyles.errorText]}>
-              {formikProps.errors.email}
-            </Text>
+            <View style={{ position: "absolute", top: -25, left: 0 }}>
+              <Text style={[globalStyles.errorText]}>
+                {formikProps.errors.email}
+              </Text>
+            </View>
           )}
           <CustomInput
             cursorColor="white"

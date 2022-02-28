@@ -1,6 +1,6 @@
 // Standard packages
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 // Components
 import ForgotPassword from "../components/Authentication/ForgotPassword";

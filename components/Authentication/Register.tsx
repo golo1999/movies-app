@@ -1,16 +1,13 @@
 // Standard packages
 import { Formik } from "formik";
 import React from "react";
-import { GestureResponderEvent, StyleSheet, Text, View } from "react-native";
+import { GestureResponderEvent, Text, View } from "react-native";
 import * as yup from "yup";
 
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import CustomText from "../UI/Text";
-
-// Methods
-import { emailIsValid, nameIsValid } from "../../themes/methods";
 
 // Variables
 import {
@@ -33,14 +30,11 @@ type Props = {
 type FormValues = { email: string; name: string; password: string };
 
 const registerSchema = yup.object({
-  email: yup
-    .string()
-    .required(`Email is required`)
-    .test(`email-valid`, `Email is not valid`, (value) => emailIsValid(value)),
+  email: yup.string().required(`Email is required`).email(`Email is not valid`),
   name: yup
     .string()
     .required(`Name is required`)
-    .test(`name-valid`, `Name is not valid`, (value) => nameIsValid(value))
+    .matches(/^[a-z- \xC0-\xFF]+$/i, `Name is not valid`)
     .min(2, (chars) => `Name must be at least ${chars.min} characters`),
   password: yup
     .string()

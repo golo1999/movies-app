@@ -6,11 +6,12 @@ import { COLORS } from "../themes/variables";
 
 const authenticationStyles = StyleSheet.create({
   container: {
+    backgroundColor: COLORS.PRIMARY,
     display: `flex`,
     flex: 1,
     flexDirection: `column`,
     justifyContent: `center`,
-    margin: 32,
+    padding: 32,
   },
   logo: {
     color: COLORS.SECONDARY,
