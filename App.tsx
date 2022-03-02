@@ -9,16 +9,14 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 
 // Navigation
-import MyDrawerNavigator from "./navigation/myDrawerNavigator";
-import MyStackNavigator from "./navigation/myStackNavigator";
-import StartingStack from "./navigation/StartingStack";
+import AppStack from "./navigation/AppStack";
 
 const App = () => {
   return (
     <Provider store={store}>
       <StatusBar hidden />
       <NavigationContainer>
-        <StartingStack />
+        <AppStack />
       </NavigationContainer>
     </Provider>
   );

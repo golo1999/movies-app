@@ -5,34 +5,25 @@ import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { DrawerActions } from "@react-navigation/native";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 // Navigation
 import MoviesDrawer from "./MoviesDrawer";
-import MyDrawerNavigator from "./myDrawerNavigator";
 
 // Components
-import Authentication from "../screens/Authentication";
-import CustomHeader from "../components/CustomHeader";
-import MovieDetails from "../screens/MovieDetails";
-import Movies from "../screens/Movies";
 import SplashScreen from "../screens/SplashScreen";
 
 // Models
 import { User } from "../models/User";
 
-// Variables
-import { COLORS } from "../themes/variables";
-
-export type StartingStackParamsList = {
+export type AppStackParamsList = {
   MoviesDrawer: undefined;
   SplashScreen: undefined;
 };
 
-const Stack = createNativeStackNavigator<StartingStackParamsList>();
+const Stack = createNativeStackNavigator<AppStackParamsList>();
 
-export const StartingStack = () => {
+export const AppStack = () => {
   const authenticatedUser: User = useSelector(
     (state: RootStateOrAny) => state.auth.authenticatedUser
   );
@@ -56,4 +47,4 @@ export const StartingStack = () => {
   );
 };
 
-export default StartingStack;
+export default AppStack;

@@ -1,6 +1,5 @@
 // Standard packages
 import React from "react";
-import { Icon } from "react-native-elements";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -11,29 +10,31 @@ import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 // Redux
 import { authActions } from "../store/auth-slice";
 
-// Components
+// Screens
 import Authentication from "../screens/Authentication";
+import MovieGenres from "../screens/MovieGenres";
+import MoviesFilteredByGenre from "../screens/MoviesFilteredByGenre";
+
+// Components
 import CustomHeader from "../components/CustomHeader";
-import MovieDetails from "../screens/MovieDetails";
-import Movies from "../screens/Movies";
 
 // Models
 import { User } from "../models/User";
 
-export type MoviesStackParamsList = {
+export type MovieCategoriesStackParamsList = {
   Authentication: undefined;
-  Movies: undefined;
-  MovieDetails: undefined;
+  MovieCategories: undefined;
+  MoviesFilteredByGenre: undefined;
 };
 
-type MoviesStackScreenProp = NativeStackNavigationProp<
-  MoviesStackParamsList,
-  "Movies"
+type MovieCategoriesStackScreenProp = NativeStackNavigationProp<
+  MovieCategoriesStackParamsList,
+  "MovieCategories"
 >;
 
-const Stack = createNativeStackNavigator<MoviesStackParamsList>();
+const Stack = createNativeStackNavigator<MovieCategoriesStackParamsList>();
 
-export const MoviesStack = () => {
+export const MovieCategoriesStack = () => {
   const dispatch = useDispatch();
 
   const authenticatedUser: User = useSelector(
@@ -42,11 +43,11 @@ export const MoviesStack = () => {
 
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
-  const goBackHandler = (navigation: MoviesStackScreenProp) => {
+  const goBackHandler = (navigation: MovieCategoriesStackScreenProp) => {
     navigation.goBack();
   };
 
-  const loginRedirectHandler = (navigation: MoviesStackScreenProp) => {
+  const loginRedirectHandler = (navigation: MovieCategoriesStackScreenProp) => {
     navigation.navigate("Authentication");
   };
 
@@ -55,12 +56,12 @@ export const MoviesStack = () => {
     alert("logged out");
   };
 
-  const openDrawerHandler = (navigation: MoviesStackScreenProp) => {
+  const openDrawerHandler = (navigation: MovieCategoriesStackScreenProp) => {
     navigation.dispatch(DrawerActions.openDrawer());
   };
 
   return (
-    <Stack.Navigator initialRouteName="Movies">
+    <Stack.Navigator initialRouteName="MovieCategories">
       <Stack.Screen
         name="Authentication"
         component={Authentication}
@@ -77,14 +78,29 @@ export const MoviesStack = () => {
         })}
       />
       <Stack.Screen
-        name="Movies"
-        component={Movies}
+        name="MovieCategories"
+        component={MovieGenres}
         options={({ navigation }) => ({
           header: () => (
             <CustomHeader
               headerLeft={{
                 iconName: "menu",
                 onPress: () => openDrawerHandler(navigation),
+              }}
+              title="Categories"
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="MoviesFilteredByGenre"
+        component={MoviesFilteredByGenre}
+        options={({ navigation }) => ({
+          header: () => (
+            <CustomHeader
+              headerLeft={{
+                iconName: "arrow-back",
+                onPress: () => goBackHandler(navigation),
               }}
               headerRight={{
                 iconName: userIsAuthenticated ? "logout" : "login",
@@ -96,32 +112,7 @@ export const MoviesStack = () => {
                   }
                 },
               }}
-              title="Movies"
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="MovieDetails"
-        component={MovieDetails}
-        options={({ navigation }) => ({
-          header: () => (
-            <CustomHeader
-              headerLeft={{
-                iconName: "arrow-back",
-                onPress: () => goBackHandler(navigation),
-              }}
-              headerRight={{
-                iconName: "star-outline",
-                onPress: () => {
-                  if (userIsAuthenticated) {
-                    alert("Added to favorites");
-                  } else {
-                    loginRedirectHandler(navigation);
-                  }
-                },
-              }}
-              title="Movie details"
+              title="Filtered movies"
             />
           ),
         })}
@@ -130,4 +121,4 @@ export const MoviesStack = () => {
   );
 };
 
-export default MoviesStack;
+export default MovieCategoriesStack;

@@ -1,6 +1,6 @@
 // Standard packages
 import React, { useEffect, useState } from "react";
-import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
@@ -9,7 +9,10 @@ import { useDispatch } from "react-redux";
 import { selectedMovieActions } from "../../store/selected-movie-slice";
 
 // Navigation
-import { RootStackParamsList } from "../../navigation/myStackNavigator";
+import { MoviesStackParamsList } from "../../navigation/MoviesStack";
+
+// Screens
+import Loading from "../../screens/Loading";
 
 // Components
 import MoviesListItem from "./MoviesListItem";
@@ -23,8 +26,8 @@ import { COLORS } from "../../themes/variables";
 type Props = { moviesList: Movie[] };
 
 type MovieDetailsScreenProp = NativeStackNavigationProp<
-  RootStackParamsList,
-  `MovieDetails`
+  MoviesStackParamsList,
+  "Movies"
 >;
 
 const MoviesList = ({ moviesList }: Props) => {
@@ -87,12 +90,7 @@ const MoviesList = ({ moviesList }: Props) => {
 
   return (
     <>
-      {pageIsLoading && (
-        <View style={moviesListStyles.loadingContainer}>
-          <Text style={moviesListStyles.loadingText}>Fetching data...</Text>
-        </View>
-      )}
-      {!pageIsLoading && (
+      {!pageIsLoading ? (
         <View style={moviesListStyles.container}>
           <FlatList
             contentContainerStyle={moviesListStyles.moviesList}
@@ -107,6 +105,12 @@ const MoviesList = ({ moviesList }: Props) => {
             )}
           />
         </View>
+      ) : (
+        <Loading
+          containerStyle={moviesListStyles.loadingContainer}
+          message="Fetching data..."
+          textStyle={moviesListStyles.loadingText}
+        />
       )}
     </>
   );
@@ -115,7 +119,7 @@ const MoviesList = ({ moviesList }: Props) => {
 export default MoviesList;
 
 const moviesListStyles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.PRIMARY },
+  container: { backgroundColor: COLORS.PRIMARY, flex: 1 },
   loadingContainer: {
     alignItems: `center`,
     backgroundColor: COLORS.PRIMARY,

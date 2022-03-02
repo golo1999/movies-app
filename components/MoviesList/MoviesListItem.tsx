@@ -61,8 +61,8 @@ const moviesListItemStyles = StyleSheet.create({
   container: {
     alignItems: `center`,
     display: `flex`,
+    flexBasis: "50%",
     flexDirection: `column`,
-    width: `50%`,
   },
   title: { textAlign: `center` },
 });

@@ -4,15 +4,22 @@ import React from "react";
 import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useDispatch } from "react-redux";
 import * as yup from "yup";
 
+// Redux
+import { authActions } from "../../store/auth-slice";
+
 // Navigation
-import { RootStackParamsList } from "../../navigation/myStackNavigator";
+import { MoviesStackParamsList } from "../../navigation/MoviesStack";
 
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import CustomText from "../UI/Text";
+
+// Models
+import { User } from "../../models/User";
 
 // Variables
 import {
@@ -34,8 +41,8 @@ type Props = {
 };
 
 type MoviesScreenProp = NativeStackNavigationProp<
-  RootStackParamsList,
-  `MoviesDrawer`
+  MoviesStackParamsList,
+  "Movies"
 >;
 
 type FormValues = { email: string; password: string };
@@ -52,12 +59,21 @@ const Login = ({
   redirectToForgotPasswordHandler,
   redirectToRegisterHandler,
 }: Props) => {
+  const dispatch = useDispatch();
+
   const navigation = useNavigation<MoviesScreenProp>();
 
   const initialValues: FormValues = { email: ``, password: `` };
 
   const logInHandler = (values: FormValues) => {
     console.log(values);
+    const authUser: User = new User({
+      id: 1,
+      email: "golo@mail.com",
+      name: "Golo",
+    });
+
+    dispatch(authActions.setAuthenticatedUser({ authenticatedUser: authUser }));
     navigation.pop();
   };
 

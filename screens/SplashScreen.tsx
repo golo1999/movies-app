@@ -6,14 +6,14 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // Navigation
-import { RootStackParamsList } from "../navigation/myStackNavigator";
+import { AppStackParamsList } from "../navigation/AppStack";
 
 // Variables
 import { APP_NAME as appName, COLORS } from "../themes/variables";
 
 type MoviesListScreenProp = NativeStackNavigationProp<
-  RootStackParamsList,
-  `MoviesDrawer`
+  AppStackParamsList,
+  "MoviesDrawer"
 >;
 
 const SplashScreen = () => {

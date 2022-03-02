@@ -12,10 +12,10 @@ const authSlice = createSlice({
   name: `auth`,
   initialState,
   reducers: {
-    clearSelectedMovie: (state) => {
+    clearAuthenticatedUser: (state) => {
       state.authenticatedUser = {} as AuthenticatedUserState;
     },
-    setSelectedMovie: (state, action) => {
+    setAuthenticatedUser: (state, action) => {
       const authenticatedUser: AuthenticatedUserState =
         action.payload.authenticatedUser;
 

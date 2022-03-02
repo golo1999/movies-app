@@ -12,6 +12,8 @@ import MoviesList from "../components/MoviesList/MoviesList";
 // Models
 import { Movie } from "../models/Movie";
 
+import { getMoviesListByGenre } from "../themes/methods";
+
 const Movies = () => {
   const dispatch = useDispatch();
 
@@ -23,6 +25,9 @@ const Movies = () => {
   const moviesList: Movie[] = useSelector(
     (state: RootStateOrAny) => state.moviesList.moviesList
   );
+
+  console.log("WAR MOVIES");
+  console.log(getMoviesListByGenre(moviesList, "War").length);
 
   return <MoviesList moviesList={moviesList} />;
 };
