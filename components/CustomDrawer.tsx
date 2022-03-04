@@ -9,9 +9,11 @@ import {
 } from "@react-navigation/drawer";
 import { RootStateOrAny, useSelector } from "react-redux";
 
+// Models
+import { User } from "../models/User";
+
 // Variables
 import { COLORS } from "../themes/variables";
-import { User } from "../models/User";
 
 type Props = {
   logInHandler: () => void;
@@ -27,43 +29,40 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
   return (
-    <View style={customDrawerStyles.container}>
+    <View style={styles.container}>
       <DrawerContentScrollView
         {...props}
         contentContainerStyle={{ backgroundColor: COLORS.SECONDARY }}
       >
         {userIsAuthenticated ? (
-          <View style={[customDrawerStyles.header]}>
-            <View style={[customDrawerStyles.headerIconContainer]}>
-              <Text style={[customDrawerStyles.headerIcon]}>
+          <View style={[styles.header]}>
+            <View style={[styles.headerIconContainer]}>
+              <Text style={[styles.headerIcon]}>
                 {authenticatedUser.name.charAt(0).toUpperCase()}
               </Text>
             </View>
             <Text
               style={[
-                customDrawerStyles.headerText,
+                styles.headerText,
                 { fontWeight: "bold", marginVertical: 8 },
               ]}
             >
               {authenticatedUser.name}
             </Text>
             <Text
-              style={[
-                customDrawerStyles.headerText,
-                { fontStyle: "italic", marginTop: 8 },
-              ]}
+              style={[styles.headerText, { fontStyle: "italic", marginTop: 8 }]}
             >
               {authenticatedUser.email}
             </Text>
           </View>
         ) : (
-          <View style={[customDrawerStyles.header]}>
-            <View style={[customDrawerStyles.headerIconContainer]}>
-              <Text style={[customDrawerStyles.headerIcon]}>?</Text>
+          <View style={[styles.header]}>
+            <View style={[styles.headerIconContainer]}>
+              <Text style={[styles.headerIcon]}>?</Text>
             </View>
             <Text
               style={[
-                customDrawerStyles.headerText,
+                styles.headerText,
                 { fontStyle: "italic", fontWeight: "bold", marginTop: 8 },
               ]}
             >
@@ -84,7 +83,7 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
 
 export default CustomDrawer;
 
-const customDrawerStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.SECONDARY,
     flex: 1,

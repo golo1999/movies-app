@@ -34,17 +34,17 @@ const MovieDetails = () => {
   const formattedMovieRuntime = `${runtime} minutes`;
 
   return (
-    <ScrollView contentContainerStyle={[movieDetailsStyle.mainContainer]}>
+    <ScrollView contentContainerStyle={[style.mainContainer]}>
       {typeof image === `string` && (
         <Image
           resizeMode="stretch"
           source={{ uri: image }}
-          style={movieDetailsStyle.image}
+          style={style.image}
         />
       )}
-      <View style={movieDetailsStyle.detailsContainer}>
+      <View style={style.detailsContainer}>
         {typeof title === `string` && (
-          <Text style={[movieDetailsStyle.heading, { marginBottom: 8 }]}>
+          <Text style={[style.heading, { marginBottom: 8 }]}>
             {formattedMovieTitle}
           </Text>
         )}
@@ -60,34 +60,28 @@ const MovieDetails = () => {
         )}
         {typeof synopsis === `string` && synopsis !== `` && (
           <View style={[{ marginVertical: 8 }]}>
-            <Text style={[movieDetailsStyle.heading, { marginBottom: 4 }]}>
-              Synopsis
-            </Text>
-            <Text style={[movieDetailsStyle.text, { marginTop: 4 }]}>
-              {synopsis}
-            </Text>
+            <Text style={[style.heading, { marginBottom: 4 }]}>Synopsis</Text>
+            <Text style={[style.text, { marginTop: 4 }]}>{synopsis}</Text>
           </View>
         )}
         {Array.isArray(genresList) && genresList.length > 0 && (
           <View style={[{ marginVertical: 8 }]}>
-            <Text style={[movieDetailsStyle.heading, { marginBottom: 4 }]}>
-              Genres
-            </Text>
-            <Text style={[movieDetailsStyle.text, { fontStyle: `italic` }]}>
+            <Text style={[style.heading, { marginBottom: 4 }]}>Genres</Text>
+            <Text style={[style.text, { fontStyle: `italic` }]}>
               {getFormattedMovieGenresList(genresList)}
             </Text>
           </View>
         )}
         {typeof runtime === `number` && (
           <View style={[{ marginVertical: 8 }]}>
-            <Text style={movieDetailsStyle.heading}>Runtime</Text>
-            <Text style={movieDetailsStyle.text}>{formattedMovieRuntime}</Text>
+            <Text style={style.heading}>Runtime</Text>
+            <Text style={style.text}>{formattedMovieRuntime}</Text>
           </View>
         )}
         {typeof dateUploaded === `string` && (
           <View>
-            <Text style={movieDetailsStyle.heading}>Upload date</Text>
-            <Text style={movieDetailsStyle.text}>{dateUploaded}</Text>
+            <Text style={style.heading}>Upload date</Text>
+            <Text style={style.text}>{dateUploaded}</Text>
           </View>
         )}
       </View>
@@ -97,7 +91,7 @@ const MovieDetails = () => {
 
 export default MovieDetails;
 
-const movieDetailsStyle = StyleSheet.create({
+const style = StyleSheet.create({
   detailsContainer: { margin: 16 },
   heading: { color: COLORS.SECONDARY, fontSize: 36, fontWeight: `bold` },
   image: { aspectRatio: 1, height: undefined, width: `100%` },

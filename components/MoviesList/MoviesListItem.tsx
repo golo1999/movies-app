@@ -27,7 +27,7 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
   return (
     <TouchableHighlight
       onPress={onPress}
-      style={[style, moviesListItemStyles.container]}
+      style={[style, styles.container]}
       underlayColor={COLORS.TERTIARY}
     >
       <View>
@@ -39,7 +39,7 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
         <Text
           numberOfLines={1}
           style={[
-            moviesListItemStyles.title,
+            styles.title,
             {
               color: `white`,
               fontSize: 16,
@@ -57,7 +57,7 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
 
 export default MoviesListItem;
 
-const moviesListItemStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     alignItems: `center`,
     display: `flex`,

@@ -1,13 +1,6 @@
 // Standard packages
 import React from "react";
-import {
-  StyleProp,
-  StyleSheet,
-  Text,
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, Text, TextStyle, View, ViewStyle } from "react-native";
 
 interface Props {
   message: string;

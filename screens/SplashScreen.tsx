@@ -31,8 +31,8 @@ const SplashScreen = () => {
   }, []);
 
   return (
-    <View style={[splashScreenStyles.container]}>
-      <Text style={splashScreenStyles.logo}>{appName}</Text>
+    <View style={[styles.container]}>
+      <Text style={styles.logo}>{appName}</Text>
       <Icon
         containerStyle={{ marginTop: 8 }}
         color={COLORS.SECONDARY}
@@ -46,7 +46,7 @@ const SplashScreen = () => {
 
 export default SplashScreen;
 
-const splashScreenStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     alignItems: `center`,
     backgroundColor: COLORS.PRIMARY,
