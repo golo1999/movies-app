@@ -5,7 +5,6 @@ import { Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
-import * as yup from "yup";
 
 // Redux
 import { authActions } from "../../store/auth-slice";
@@ -20,6 +19,9 @@ import CustomText from "../UI/Text";
 
 // Models
 import { User } from "../../models/User";
+
+// Validation
+import { loginSchema } from "../../validation/login-validation";
 
 // Variables
 import {
@@ -46,14 +48,6 @@ type MoviesScreenProp = NativeStackNavigationProp<
 >;
 
 type FormValues = { email: string; password: string };
-
-const loginSchema = yup.object({
-  email: yup.string().required(`Email is required`).email(`Email is not valid`),
-  password: yup
-    .string()
-    .required(`Password is required`)
-    .min(8, (chars) => `Password must be at least ${chars.min} characters`),
-});
 
 const Login = ({
   redirectToForgotPasswordHandler,

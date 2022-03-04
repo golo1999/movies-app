@@ -2,12 +2,14 @@
 import { Formik } from "formik";
 import React from "react";
 import { GestureResponderEvent, Text, View } from "react-native";
-import * as yup from "yup";
 
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import CustomText from "../UI/Text";
+
+// Validation
+import { forgotPasswordSchema } from "../../validation/forgot-password-validation";
 
 // Variables
 import {
@@ -28,10 +30,6 @@ type Props = {
 };
 
 type FormValues = { email: string };
-
-const forgotPasswordSchema = yup.object({
-  email: yup.string().required(`Email is required`).email(`Email is not valid`),
-});
 
 const ForgotPassword = ({ redirectToLoginHandler }: Props) => {
   const initialValues: FormValues = { email: `` };

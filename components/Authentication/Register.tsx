@@ -2,12 +2,17 @@
 import { Formik } from "formik";
 import React from "react";
 import { GestureResponderEvent, Text, View } from "react-native";
-import * as yup from "yup";
 
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import CustomText from "../UI/Text";
+
+// Models
+import { User } from "../../models/User";
+
+// Validation
+import { registerSchema } from "../../validation/register-validation";
 
 // Variables
 import {
@@ -19,6 +24,9 @@ import {
   COLORS,
 } from "../../themes/variables";
 
+// Firebase
+import { auth } from "../../themes/firebase";
+
 // Stylings
 import { registerStyles } from "../../styles/authentication-styles";
 import globalStyles from "../../styles/global-styles";
@@ -29,25 +37,34 @@ type Props = {
 
 type FormValues = { email: string; name: string; password: string };
 
-const registerSchema = yup.object({
-  email: yup.string().required(`Email is required`).email(`Email is not valid`),
-  name: yup
-    .string()
-    .required(`Name is required`)
-    .matches(/^[a-z- \xC0-\xFF]+$/i, `Name is not valid`)
-    .min(2, (chars) => `Name must be at least ${chars.min} characters`),
-  password: yup
-    .string()
-    .required(`Password is required`)
-    .min(8, (chars) => `Password must be at least ${chars.min} characters`),
-});
-
 const Register = ({ redirectToLoginHandler }: Props) => {
   const initialValues: FormValues = { email: ``, name: ``, password: `` };
 
   const registerHandler = (values: FormValues) => {
+    const { email, name, password } = values;
+
     console.log(values);
-    redirectToLoginHandler();
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        if (!user) {
+          return;
+        }
+
+        user.sendEmailVerification().then(() => {
+          console.log("Email verification sent");
+
+          const newUser = new User({
+            id: user.uid,
+            email,
+            name,
+          });
+
+          redirectToLoginHandler();
+        });
+      });
   };
 
   return (
