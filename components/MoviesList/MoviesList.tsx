@@ -23,50 +23,23 @@ import { Movie } from "../../models/Movie";
 // Variables
 import { COLORS } from "../../themes/variables";
 
-type Props = { moviesList: Movie[] };
+type Props = {
+  loadingMessage: string;
+  moviesList: Movie[];
+  numberOfMovies: number;
+};
 
 type MovieDetailsScreenProp = NativeStackNavigationProp<
   MoviesStackParamsList,
   "Movies"
 >;
 
-const MoviesList = ({ moviesList }: Props) => {
+const MoviesList = ({ loadingMessage, moviesList, numberOfMovies }: Props) => {
   const [pageIsLoading, setPageIsLoading] = useState(true);
-
-  const [numberOfMovies, setNumberOfMovies] = useState(-1);
 
   const navigation = useNavigation<MovieDetailsScreenProp>();
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    fetch(`https://yts.mx/api/v2/list_movies.json`, {
-      signal: abortController.signal,
-    })
-      .then((result) => {
-        if (!result.ok) {
-          throw Error(`Couldn't fetch movies list length...`);
-        }
-
-        return result.json();
-      })
-      .then((data) => {
-        const moviesData = data.data;
-
-        const moviesList: Movie[] = Object.values(moviesData.movies);
-
-        setNumberOfMovies(moviesList.length);
-      })
-      .catch((error) => {
-        if (error.name === `AbortError`) {
-          console.log(`fetch aborted`);
-        }
-      });
-
-    return () => abortController?.abort();
-  }, []);
 
   const listSuccessfullyRetrieved = moviesList.length === numberOfMovies;
 
@@ -91,25 +64,25 @@ const MoviesList = ({ moviesList }: Props) => {
   return (
     <>
       {!pageIsLoading ? (
-        <View style={moviesListStyles.container}>
+        <View style={styles.container}>
           <FlatList
-            contentContainerStyle={moviesListStyles.moviesList}
+            contentContainerStyle={styles.moviesList}
             data={moviesList}
             numColumns={2}
             renderItem={({ item: movie }) => (
               <MoviesListItem
                 movie={movie}
                 onPress={() => moviePressHandler(movie)}
-                style={moviesListStyles.moviesListItem}
+                style={styles.moviesListItem}
               />
             )}
           />
         </View>
       ) : (
         <Loading
-          containerStyle={moviesListStyles.loadingContainer}
-          message="Fetching data..."
-          textStyle={moviesListStyles.loadingText}
+          containerStyle={styles.loadingContainer}
+          message={loadingMessage}
+          textStyle={styles.loadingText}
         />
       )}
     </>
@@ -118,7 +91,7 @@ const MoviesList = ({ moviesList }: Props) => {
 
 export default MoviesList;
 
-const moviesListStyles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: { backgroundColor: COLORS.PRIMARY, flex: 1 },
   loadingContainer: {
     alignItems: `center`,

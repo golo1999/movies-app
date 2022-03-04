@@ -1,19 +1,38 @@
 // Standard packages
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useRoute } from "@react-navigation/native";
+import { RootStateOrAny, useSelector } from "react-redux";
 
-interface Props {
-  genreName: string;
-}
+// Components
+import MoviesList from "../components/MoviesList/MoviesList";
 
-const MoviesFilteredByGenre = ({ genreName }: Props) => {
+// Models
+import { Movie } from "../models/Movie";
+
+// Methods
+import { getMoviesListByGenre } from "../themes/methods";
+
+const MoviesFilteredByGenre = () => {
+  const route = useRoute();
+
+  const selectedMoviesGenre: string = route.params?.genre;
+
+  const moviesList: Movie[] = useSelector(
+    (state: RootStateOrAny) => state.moviesList.moviesList
+  );
+
+  const filteredMoviesList = getMoviesListByGenre(
+    moviesList,
+    selectedMoviesGenre
+  );
+
   return (
-    <View>
-      <Text>{genreName}</Text>
-    </View>
+    <MoviesList
+      loadingMessage={`Filtering ${selectedMoviesGenre.toLowerCase()} movies...`}
+      moviesList={filteredMoviesList}
+      numberOfMovies={filteredMoviesList.length}
+    />
   );
 };
 
 export default MoviesFilteredByGenre;
-
-const styles = StyleSheet.create({});

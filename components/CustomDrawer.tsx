@@ -13,7 +13,13 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import { COLORS } from "../themes/variables";
 import { User } from "../models/User";
 
-const CustomDrawer = (props: DrawerContentComponentProps) => {
+type Props = {
+  logInHandler: () => void;
+  logOutHandler: () => void;
+  props: DrawerContentComponentProps;
+};
+
+const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
   const authenticatedUser: User = useSelector(
     (state: RootStateOrAny) => state.auth.authenticatedUser
   );
@@ -67,9 +73,9 @@ const CustomDrawer = (props: DrawerContentComponentProps) => {
         )}
         <DrawerItemList {...props} />
         {userIsAuthenticated ? (
-          <DrawerItem label="Log out" onPress={() => {}} />
+          <DrawerItem label="Log out" onPress={logOutHandler} />
         ) : (
-          <DrawerItem label="Log in" onPress={() => {}} />
+          <DrawerItem label="Log in" onPress={logInHandler} />
         )}
       </DrawerContentScrollView>
     </View>

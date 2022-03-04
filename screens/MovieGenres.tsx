@@ -22,7 +22,7 @@ import { COLORS } from "../themes/variables";
 
 type MovieDetailsScreenProp = NativeStackNavigationProp<
   MovieCategoriesStackParamsList,
-  "MovieCategories"
+  "MovieGenres"
 >;
 
 const MovieGenres = () => {
@@ -35,8 +35,9 @@ const MovieGenres = () => {
   const movieGenresList = getMovieGenresList(moviesList);
 
   const genrePressHandler = (genreName: string) => {
-    alert(genreName);
-    navigation.navigate("MoviesFilteredByGenre");
+    navigation.navigate("MoviesFilteredByGenre", {
+      genre: genreName,
+    });
   };
 
   return (

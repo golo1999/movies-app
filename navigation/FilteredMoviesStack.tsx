@@ -12,7 +12,6 @@ import { authActions } from "../store/auth-slice";
 
 // Screens
 import Authentication from "../screens/Authentication";
-import MovieGenres from "../screens/MovieGenres";
 import MoviesFilteredByGenre from "../screens/MoviesFilteredByGenre";
 
 // Components
@@ -22,21 +21,20 @@ import MovieDetails from "../screens/MovieDetails";
 // Models
 import { User } from "../models/User";
 
-export type MovieCategoriesStackParamsList = {
+export type FilteredMoviesStackParamsList = {
   Authentication: undefined;
   MovieDetails: undefined;
-  MovieGenres: undefined;
   MoviesFilteredByGenre: undefined;
 };
 
-type MovieCategoriesStackScreenProp = NativeStackNavigationProp<
-  MovieCategoriesStackParamsList,
-  "MovieGenres"
+type FilteredMoviesStackScreenProp = NativeStackNavigationProp<
+  FilteredMoviesStackParamsList,
+  "MoviesFilteredByGenre"
 >;
 
-const Stack = createNativeStackNavigator<MovieCategoriesStackParamsList>();
+const Stack = createNativeStackNavigator<FilteredMoviesStackParamsList>();
 
-export const MovieCategoriesStack = () => {
+export const FilteredMoviesStack = () => {
   const dispatch = useDispatch();
 
   const authenticatedUser: User = useSelector(
@@ -45,11 +43,11 @@ export const MovieCategoriesStack = () => {
 
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
-  const goBackHandler = (navigation: MovieCategoriesStackScreenProp) => {
+  const goBackHandler = (navigation: FilteredMoviesStackScreenProp) => {
     navigation.goBack();
   };
 
-  const loginRedirectHandler = (navigation: MovieCategoriesStackScreenProp) => {
+  const loginRedirectHandler = (navigation: FilteredMoviesStackScreenProp) => {
     navigation.navigate("Authentication");
   };
 
@@ -58,12 +56,12 @@ export const MovieCategoriesStack = () => {
     alert("logged out");
   };
 
-  const openDrawerHandler = (navigation: MovieCategoriesStackScreenProp) => {
+  const openDrawerHandler = (navigation: FilteredMoviesStackScreenProp) => {
     navigation.dispatch(DrawerActions.openDrawer());
   };
 
   return (
-    <Stack.Navigator initialRouteName="MovieGenres">
+    <Stack.Navigator initialRouteName="MoviesFilteredByGenre">
       <Stack.Screen
         name="Authentication"
         component={Authentication}
@@ -82,31 +80,6 @@ export const MovieCategoriesStack = () => {
       <Stack.Screen
         name="MovieDetails"
         component={MovieDetails}
-        options={({ navigation }) => ({
-          header: () => (
-            <CustomHeader
-              headerLeft={{
-                iconName: "arrow-back",
-                onPress: () => goBackHandler(navigation),
-              }}
-              headerRight={{
-                iconName: "star-outline",
-                onPress: () => {
-                  if (userIsAuthenticated) {
-                    alert("Added to favorites");
-                  } else {
-                    loginRedirectHandler(navigation);
-                  }
-                },
-              }}
-              title="Movie details"
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="MovieGenres"
-        component={MovieGenres}
         options={({ navigation }) => ({
           header: () => (
             <CustomHeader
@@ -148,4 +121,4 @@ export const MovieCategoriesStack = () => {
   );
 };
 
-export default MovieCategoriesStack;
+export default FilteredMoviesStack;

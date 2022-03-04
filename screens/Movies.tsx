@@ -1,5 +1,5 @@
 // Standard packages
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
 // Redux
@@ -12,9 +12,9 @@ import MoviesList from "../components/MoviesList/MoviesList";
 // Models
 import { Movie } from "../models/Movie";
 
-import { getMoviesListByGenre } from "../themes/methods";
-
 const Movies = () => {
+  const [numberOfMovies, setNumberOfMovies] = useState(-1);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,14 +22,46 @@ const Movies = () => {
     dispatch(fetchMoviesList());
   }, [dispatch]);
 
+  useEffect(() => {
+    const abortController = new AbortController();
+
+    fetch(`https://yts.mx/api/v2/list_movies.json`, {
+      signal: abortController.signal,
+    })
+      .then((result) => {
+        if (!result.ok) {
+          throw Error(`Couldn't fetch movies list length...`);
+        }
+
+        return result.json();
+      })
+      .then((data) => {
+        const moviesData = data.data;
+
+        const moviesList: Movie[] = Object.values(moviesData.movies);
+
+        setNumberOfMovies(moviesList.length);
+      })
+      .catch((error) => {
+        if (error.name === `AbortError`) {
+          console.log(`fetch aborted`);
+        }
+      });
+
+    return () => abortController?.abort();
+  }, []);
+
   const moviesList: Movie[] = useSelector(
     (state: RootStateOrAny) => state.moviesList.moviesList
   );
 
-  console.log("WAR MOVIES");
-  console.log(getMoviesListByGenre(moviesList, "War").length);
-
-  return <MoviesList moviesList={moviesList} />;
+  return (
+    <MoviesList
+      loadingMessage="Fetching data..."
+      moviesList={moviesList}
+      numberOfMovies={numberOfMovies}
+    />
+  );
 };
 
 export default Movies;
