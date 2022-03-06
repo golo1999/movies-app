@@ -1,5 +1,35 @@
+// Standard packages
+import { ref, set } from "firebase/database";
+
+// Components
+import Toast from "react-native-toast-message";
+
 // Models
 import { Movie } from "../models/Movie";
+import { User } from "../models/User";
+
+// Firebase
+import { db } from "../firebase/firebase";
+
+// Props
+interface ToastProps {
+  message: string;
+  title: string;
+  type: string;
+}
+
+export const createPersonalInformationPath = (newUser: User) => {
+  if (!newUser) {
+    return;
+  }
+
+  const personalInformationRef = ref(
+    db,
+    `users/${newUser.id}/personalInformation`
+  );
+
+  set(personalInformationRef, newUser);
+};
 
 export const getFormattedMovieGenresList = (genresList: string[]): string => {
   const genresListLength = genresList.length;
@@ -52,4 +82,14 @@ export const getMoviesListByGenre = (
   );
 
   return filteredMoviesList;
+};
+
+export const showToast = ({ message, title, type }: ToastProps) => {
+  Toast.show({
+    text1: title,
+    text2: message,
+    topOffset: 300,
+    type,
+    visibilityTime: 3000,
+  });
 };

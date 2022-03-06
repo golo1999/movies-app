@@ -1,20 +1,12 @@
 // Standard packages
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-} from "firebase/auth";
-import { ref, set } from "firebase/database";
 import { Formik } from "formik";
 import React from "react";
-import { Alert, GestureResponderEvent, Text, View } from "react-native";
+import { GestureResponderEvent, Text, View } from "react-native";
 
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import CustomText from "../UI/Text";
-
-// Models
-import { User } from "../../models/User";
 
 // Validation
 import { registerSchema } from "../../validation/register-validation";
@@ -29,8 +21,8 @@ import {
   COLORS,
 } from "../../themes/variables";
 
-// Firebase
-import { auth, db } from "../../themes/firebase";
+// Methods
+import { registerUser } from "../../firebase/firebase-methods";
 
 // Stylings
 import { registerStyles } from "../../styles/authentication-styles";
@@ -43,48 +35,19 @@ type Props = {
 type FormValues = { email: string; name: string; password: string };
 
 const Register = ({ redirectToLoginHandler }: Props) => {
-  const initialValues: FormValues = { email: ``, name: ``, password: `` };
-
-  const createPersonalInformationPath = (newUser: User) => {
-    if (!newUser) {
-      return;
-    }
-
-    const personalInformationRef = ref(
-      db,
-      `users/${newUser.id}/personalInformation`
-    );
-
-    set(personalInformationRef, newUser);
-  };
-
-  const registerUserHandler = (values: FormValues) => {
-    const { email, name, password } = values;
-
-    createUserWithEmailAndPassword(auth, email, password).then(
-      (userCredential) => {
-        const user = userCredential.user;
-
-        if (!user) {
-          return;
-        }
-
-        sendEmailVerification(user).then(() => {
-          Alert.alert("Email verification sent", "Please check your email");
-
-          createPersonalInformationPath(
-            new User({ email, id: user.uid, name })
-          );
-          redirectToLoginHandler();
-        });
-      }
-    );
-  };
+  const initialValues: FormValues = { email: "", name: "", password: "" };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => registerUserHandler(values)}
+      onSubmit={(values) =>
+        registerUser({
+          email: values.email,
+          name: values.name,
+          password: values.password,
+          redirectToLoginHandler,
+        })
+      }
       validationSchema={registerSchema}
     >
       {(formikProps) => (

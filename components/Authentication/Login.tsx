@@ -59,7 +59,7 @@ const Login = ({
 
   const initialValues: FormValues = { email: ``, password: `` };
 
-  const logInHandler = (values: FormValues) => {
+  const authenticateUserHandler = (values: FormValues) => {
     console.log(values);
     const authUser: User = new User({
       id: 1,
@@ -74,7 +74,7 @@ const Login = ({
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => logInHandler(values)}
+      onSubmit={(values) => authenticateUserHandler(values)}
       validationSchema={loginSchema}
     >
       {(formikProps) => (
