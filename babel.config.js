@@ -16,6 +16,7 @@ module.exports = function (api) {
             "STORAGE_BUCKET",
             "MESSAGING_SENDER_ID",
             "APP_ID",
+            "DATABASE_URL"
           ],
           safe: false,
           allowUndefined: true,

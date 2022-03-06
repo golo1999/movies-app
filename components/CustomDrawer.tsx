@@ -9,6 +9,9 @@ import {
 } from "@react-navigation/drawer";
 import { RootStateOrAny, useSelector } from "react-redux";
 
+// Components
+import CustomButton, { CustomNoUnderlayButton } from "./UI/Button";
+
 // Models
 import { User } from "../models/User";
 
@@ -31,8 +34,8 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
   return (
     <View style={styles.container}>
       <DrawerContentScrollView
-        {...props}
         contentContainerStyle={{ backgroundColor: COLORS.SECONDARY }}
+        {...props}
       >
         {userIsAuthenticated ? (
           <View style={[styles.header]}>
@@ -71,12 +74,13 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
           </View>
         )}
         <DrawerItemList {...props} />
-        {userIsAuthenticated ? (
-          <DrawerItem label="Log out" onPress={logOutHandler} />
-        ) : (
-          <DrawerItem label="Log in" onPress={logInHandler} />
-        )}
       </DrawerContentScrollView>
+      <CustomNoUnderlayButton
+        onPress={userIsAuthenticated ? logOutHandler : logInHandler}
+        style={styles.authenticationButton}
+        text={userIsAuthenticated ? "Log out" : "Log in"}
+        textStyle={styles.authenticationButtonText}
+      />
     </View>
   );
 };
@@ -84,6 +88,8 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
 export default CustomDrawer;
 
 const styles = StyleSheet.create({
+  authenticationButton: { marginVertical: 8 },
+  authenticationButtonText: { color: "white" },
   container: {
     backgroundColor: COLORS.SECONDARY,
     flex: 1,

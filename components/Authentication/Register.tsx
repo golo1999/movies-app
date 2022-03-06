@@ -1,7 +1,12 @@
 // Standard packages
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
+import { ref, set } from "firebase/database";
 import { Formik } from "formik";
 import React from "react";
-import { GestureResponderEvent, Text, View } from "react-native";
+import { Alert, GestureResponderEvent, Text, View } from "react-native";
 
 // Components
 import CustomButton from "../UI/Button";
@@ -25,7 +30,7 @@ import {
 } from "../../themes/variables";
 
 // Firebase
-import { auth } from "../../themes/firebase";
+import { auth, db } from "../../themes/firebase";
 
 // Stylings
 import { registerStyles } from "../../styles/authentication-styles";
@@ -40,37 +45,46 @@ type FormValues = { email: string; name: string; password: string };
 const Register = ({ redirectToLoginHandler }: Props) => {
   const initialValues: FormValues = { email: ``, name: ``, password: `` };
 
-  const registerHandler = (values: FormValues) => {
+  const createPersonalInformationPath = (newUser: User) => {
+    if (!newUser) {
+      return;
+    }
+
+    const personalInformationRef = ref(
+      db,
+      `users/${newUser.id}/personalInformation`
+    );
+
+    set(personalInformationRef, newUser);
+  };
+
+  const registerUserHandler = (values: FormValues) => {
     const { email, name, password } = values;
 
-    console.log(values);
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+    createUserWithEmailAndPassword(auth, email, password).then(
+      (userCredential) => {
         const user = userCredential.user;
 
         if (!user) {
           return;
         }
 
-        user.sendEmailVerification().then(() => {
-          console.log("Email verification sent");
+        sendEmailVerification(user).then(() => {
+          Alert.alert("Email verification sent", "Please check your email");
 
-          const newUser = new User({
-            id: user.uid,
-            email,
-            name,
-          });
-
+          createPersonalInformationPath(
+            new User({ email, id: user.uid, name })
+          );
           redirectToLoginHandler();
         });
-      });
+      }
+    );
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => registerHandler(values)}
+      onSubmit={(values) => registerUserHandler(values)}
       validationSchema={registerSchema}
     >
       {(formikProps) => (

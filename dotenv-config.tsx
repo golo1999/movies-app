@@ -5,6 +5,7 @@ import {
   STORAGE_BUCKET,
   MESSAGING_SENDER_ID,
   APP_ID,
+  DATABASE_URL,
 } from "@env";
 
 export default {
@@ -14,4 +15,5 @@ export default {
   STORAGE_BUCKET,
   MESSAGING_SENDER_ID,
   APP_ID,
+  DATABASE_URL,
 };
