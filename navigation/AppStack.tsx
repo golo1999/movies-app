@@ -1,11 +1,10 @@
 // Standard packages
-import React from "react";
-import { Icon } from "react-native-elements";
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from "@react-navigation/native-stack";
-import { RootStateOrAny, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+
+// Redux
+import { fetchAuthenticatedUser } from "../store/auth-actions";
 
 // Navigation
 import MoviesDrawer from "./MoviesDrawer";
@@ -24,6 +23,12 @@ export type AppStackParamsList = {
 const Stack = createNativeStackNavigator<AppStackParamsList>();
 
 export const AppStack = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAuthenticatedUser());
+  }, [dispatch]);
+
   const authenticatedUser: User = useSelector(
     (state: RootStateOrAny) => state.auth.authenticatedUser
   );

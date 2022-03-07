@@ -5,13 +5,13 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 
-// Redux
-import { authActions } from "../store/auth-slice";
-
 // Navigation
 import MovieCategoriesStack from "./MovieCategoriesStack";
 import MoviesStack from "./MoviesStack";
 import ProfileStack from "./ProfileStack";
+
+// Firebase
+import { signOutUser } from "../firebase/firebase-methods";
 
 // Components
 import CustomDrawer from "../components/CustomDrawer";
@@ -50,16 +50,12 @@ const MoviesDrawer = () => {
     navigation.navigate("Authentication");
   };
 
-  const logOutHandler = () => {
-    dispatch(authActions.clearAuthenticatedUser());
-  };
-
   return (
     <Drawer.Navigator
       drawerContent={(props) => (
         <CustomDrawer
           logInHandler={() => loginRedirectHandler(navigation)}
-          logOutHandler={logOutHandler}
+          logOutHandler={() => signOutUser({ dispatch })}
           props={{ ...props }}
         />
       )}

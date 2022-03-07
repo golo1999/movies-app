@@ -7,13 +7,13 @@ import {
 import { DrawerActions } from "@react-navigation/native";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
-// Redux
-import { authActions } from "../store/auth-slice";
-
 // Screens
 import Authentication from "../screens/Authentication";
 import MovieGenres from "../screens/MovieGenres";
 import MoviesFilteredByGenre from "../screens/MoviesFilteredByGenre";
+
+// Firebase
+import { signOutUser } from "../firebase/firebase-methods";
 
 // Components
 import CustomHeader from "../components/CustomHeader";
@@ -51,11 +51,6 @@ export const MovieCategoriesStack = () => {
 
   const loginRedirectHandler = (navigation: MovieCategoriesStackScreenProp) => {
     navigation.navigate("Authentication");
-  };
-
-  const logoutHandler = () => {
-    dispatch(authActions.clearAuthenticatedUser());
-    alert("logged out");
   };
 
   const openDrawerHandler = (navigation: MovieCategoriesStackScreenProp) => {
@@ -135,7 +130,7 @@ export const MovieCategoriesStack = () => {
                   if (!userIsAuthenticated) {
                     loginRedirectHandler(navigation);
                   } else {
-                    logoutHandler();
+                    signOutUser({ dispatch });
                   }
                 },
               }}

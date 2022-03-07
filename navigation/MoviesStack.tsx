@@ -1,6 +1,5 @@
 // Standard packages
 import React from "react";
-import { Icon } from "react-native-elements";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -8,8 +7,8 @@ import {
 import { DrawerActions } from "@react-navigation/native";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
-// Redux
-import { authActions } from "../store/auth-slice";
+// Firebase
+import { signOutUser } from "../firebase/firebase-methods";
 
 // Components
 import Authentication from "../screens/Authentication";
@@ -50,11 +49,6 @@ export const MoviesStack = () => {
     navigation.navigate("Authentication");
   };
 
-  const logoutHandler = () => {
-    dispatch(authActions.clearAuthenticatedUser());
-    alert("logged out");
-  };
-
   const openDrawerHandler = (navigation: MoviesStackScreenProp) => {
     navigation.dispatch(DrawerActions.openDrawer());
   };
@@ -92,7 +86,7 @@ export const MoviesStack = () => {
                   if (!userIsAuthenticated) {
                     loginRedirectHandler(navigation);
                   } else {
-                    logoutHandler();
+                    signOutUser({ dispatch });
                   }
                 },
               }}

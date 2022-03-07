@@ -7,6 +7,7 @@ import {
   sendEmailVerification,
   setPersistence,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import { onValue, ref } from "firebase/database";
 import { Alert } from "react-native";
@@ -18,8 +19,10 @@ import { authActions } from "../store/auth-slice";
 // Firebase
 import { auth, db } from "./firebase";
 import {
+  COULD_NOT_SIGN_OUT,
   EMAIL_ALREADY_IN_USE,
   EMAIL_NOT_VERIFIED,
+  PLEASE_CHECK_YOUR_EMAIL,
   PLEASE_TRY_AGAIN,
   TOO_MANY_REQUESTS,
   USER_NOT_FOUND,
@@ -45,6 +48,10 @@ interface RegisterUserProps {
   name: string;
   password: string;
   redirectToLoginHandler: () => void;
+}
+
+interface SignOutUserProps {
+  dispatch: Dispatch<any>;
 }
 
 export const authenticateUser = ({
@@ -111,26 +118,32 @@ export const authenticateUser = ({
     })
     .catch((error) => {
       let errorMessage;
+      let errorMessageTitle;
 
       switch (error.code) {
         case EMAIL_NOT_VERIFIED.errorCode:
           errorMessage = EMAIL_NOT_VERIFIED.userMessage;
+          errorMessageTitle = EMAIL_NOT_VERIFIED.userMessageTitle;
           break;
         case USER_NOT_FOUND.errorCode:
           errorMessage = USER_NOT_FOUND.userMessage;
+          errorMessageTitle = USER_NOT_FOUND.userMessageTitle;
           break;
         case WRONG_PASSWORD.errorCode:
           errorMessage = WRONG_PASSWORD.userMessage;
+          errorMessageTitle = WRONG_PASSWORD.userMessageTitle;
           break;
         case TOO_MANY_REQUESTS.errorCode:
           errorMessage = TOO_MANY_REQUESTS.userMessage;
+          errorMessageTitle = TOO_MANY_REQUESTS.userMessageTitle;
           break;
         default:
           errorMessage = PLEASE_TRY_AGAIN.userMessage;
+          errorMessageTitle = PLEASE_TRY_AGAIN.userMessageTitle;
           break;
       }
 
-      Alert.alert("Oops...", errorMessage);
+      Alert.alert(errorMessageTitle, errorMessage);
 
       console.log(error.code);
     });
@@ -151,7 +164,10 @@ export const registerUser = ({
       }
 
       sendEmailVerification(user).then(() => {
-        Alert.alert("Email verification sent", "Please check your email");
+        Alert.alert(
+          PLEASE_CHECK_YOUR_EMAIL.userMessageTitle,
+          PLEASE_CHECK_YOUR_EMAIL.userMessage
+        );
 
         createPersonalInformationPath(new User({ email, id: user.uid, name }));
         redirectToLoginHandler();
@@ -159,7 +175,23 @@ export const registerUser = ({
     })
     .catch((error: Error) => {
       if (error.message === EMAIL_ALREADY_IN_USE.errorCode) {
-        Alert.alert("Oops...", EMAIL_ALREADY_IN_USE.userMessage);
+        Alert.alert(
+          EMAIL_ALREADY_IN_USE.userMessageTitle,
+          EMAIL_ALREADY_IN_USE.userMessage
+        );
       }
+    });
+};
+
+export const signOutUser = ({ dispatch }: SignOutUserProps) => {
+  signOut(auth)
+    .then(() => {
+      dispatch(authActions.clearAuthenticatedUser());
+    })
+    .catch(() => {
+      Alert.alert(
+        COULD_NOT_SIGN_OUT.userMessageTitle,
+        COULD_NOT_SIGN_OUT.userMessage
+      );
     });
 };
