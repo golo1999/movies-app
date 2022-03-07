@@ -16,13 +16,17 @@ module.exports = function (api) {
             "STORAGE_BUCKET",
             "MESSAGING_SENDER_ID",
             "APP_ID",
-            "DATABASE_URL"
+            "DATABASE_URL",
           ],
           safe: false,
           allowUndefined: true,
         },
       ],
     ],
-    presets: ["babel-preset-expo"],
+    presets: [
+      "babel-preset-expo",
+      ["@babel/preset-env", { targets: { node: "current" } }],
+      "@babel/preset-typescript",
+    ],
   };
 };

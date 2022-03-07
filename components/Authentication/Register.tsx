@@ -6,7 +6,7 @@ import { GestureResponderEvent, Text, View } from "react-native";
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
-import CustomText from "../UI/Text";
+import { CustomText } from "../UI/Text";
 
 // Validation
 import { registerSchema } from "../../validation/register-validation";

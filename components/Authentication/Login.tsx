@@ -12,10 +12,13 @@ import { authActions } from "../../store/auth-slice";
 // Navigation
 import { MoviesStackParamsList } from "../../navigation/MoviesStack";
 
+// Firebase
+import { authenticateUser } from "../../firebase/firebase-methods";
+
 // Components
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
-import CustomText from "../UI/Text";
+import { CustomText } from "../UI/Text";
 
 // Models
 import { User } from "../../models/User";
@@ -47,7 +50,12 @@ type MoviesScreenProp = NativeStackNavigationProp<
   "Movies"
 >;
 
-type FormValues = { email: string; password: string };
+type FormValues = {
+  email: string;
+  goBackHandler?: () => void;
+  password: string;
+  rememberMe: boolean;
+};
 
 const Login = ({
   redirectToForgotPasswordHandler,
@@ -57,24 +65,39 @@ const Login = ({
 
   const navigation = useNavigation<MoviesScreenProp>();
 
-  const initialValues: FormValues = { email: ``, password: `` };
+  const initialValues: FormValues = {
+    email: "",
+    password: "",
+    rememberMe: false,
+  };
 
-  const authenticateUserHandler = (values: FormValues) => {
-    console.log(values);
-    const authUser: User = new User({
-      id: 1,
-      email: "golo@mail.com",
-      name: "Golo",
+  const authenticateUserHandler = ({
+    email,
+    goBackHandler,
+    password,
+    rememberMe,
+  }: FormValues) => {
+    authenticateUser({
+      dispatch,
+      email,
+      goBackHandler: () => goBackHandler,
+      password,
+      rememberMe,
     });
-
-    dispatch(authActions.setAuthenticatedUser({ authenticatedUser: authUser }));
-    navigation.pop();
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => authenticateUserHandler(values)}
+      onSubmit={(values) =>
+        authenticateUser({
+          dispatch,
+          email: values.email,
+          goBackHandler: () => navigation.pop(),
+          password: values.password,
+          rememberMe: values.rememberMe,
+        })
+      }
       validationSchema={loginSchema}
     >
       {(formikProps) => (

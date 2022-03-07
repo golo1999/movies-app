@@ -8,20 +8,16 @@ import {
   TextStyle,
 } from "react-native";
 
-type Props = {
+interface Props {
   onPress?: (event: GestureResponderEvent) => void;
-  style: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle>;
   text: string;
-};
+}
 
-const CustomText = ({ onPress, style, text }: Props) => {
+export const CustomText = ({ onPress, style, text }: Props) => {
   return (
     <Text onPress={onPress} style={style}>
       {text}
     </Text>
   );
 };
-
-export default CustomText;
-
-const styles = StyleSheet.create({});

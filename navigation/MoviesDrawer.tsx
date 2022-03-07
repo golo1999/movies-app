@@ -11,6 +11,7 @@ import { authActions } from "../store/auth-slice";
 // Navigation
 import MovieCategoriesStack from "./MovieCategoriesStack";
 import MoviesStack from "./MoviesStack";
+import ProfileStack from "./ProfileStack";
 
 // Components
 import CustomDrawer from "../components/CustomDrawer";
@@ -24,6 +25,7 @@ export type MoviesDrawerParamsList = {
   FavoriteMovies: undefined;
   MovieCategoriesStack: undefined;
   MoviesStack: undefined;
+  ProfileStack: undefined;
 };
 
 export type MoviesDrawerProp = NativeStackNavigationProp<
@@ -81,6 +83,15 @@ const MoviesDrawer = () => {
           name="FavoriteMovies"
           component={FavoriteMovies}
           options={{ title: "Favorites" }}
+        />
+      )}
+      {userIsAuthenticated && (
+        <Drawer.Screen
+          name="ProfileStack"
+          component={ProfileStack}
+          options={{
+            title: "Profile",
+          }}
         />
       )}
     </Drawer.Navigator>
