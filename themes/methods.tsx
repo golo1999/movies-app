@@ -31,6 +31,10 @@ export const createPersonalInformationPath = (newUser: User) => {
   set(personalInformationRef, newUser);
 };
 
+export const generateRandomUUID = (): string => {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
+};
+
 export const getFormattedMovieGenresList = (genresList: string[]): string => {
   const genresListLength = genresList.length;
 

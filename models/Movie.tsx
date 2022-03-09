@@ -1,5 +1,5 @@
 export class Movie {
-  id: string;
+  id: number;
   large_cover_image: string;
   genres: string[];
   rating: number;

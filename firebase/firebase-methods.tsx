@@ -9,11 +9,12 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { onValue, ref } from "firebase/database";
+import { onValue, ref, remove, set } from "firebase/database";
 import { Alert } from "react-native";
 import { Dispatch } from "@reduxjs/toolkit";
 
 // Redux
+import { checkIfMovieIsAddedToFavorites } from "../store/favorite-movies-list-actions";
 import { authActions } from "../store/auth-slice";
 
 // Firebase
@@ -30,10 +31,22 @@ import {
 } from "./firebase-errors";
 
 // Methods
-import { createPersonalInformationPath } from "../themes/methods";
+import {
+  createPersonalInformationPath,
+  generateRandomUUID,
+} from "../themes/methods";
 
 // Models
 import { User } from "../models/User";
+
+// Environment variables
+import { DATABASE_URL as databaseURL } from "@env";
+
+interface AddMovieToFavoritesProps {
+  movieId: number;
+  onSuccess: () => void;
+  userId: string;
+}
 
 interface AuthenticateUserProps {
   dispatch: Dispatch<any>;
@@ -50,9 +63,34 @@ interface RegisterUserProps {
   redirectToLoginHandler: () => void;
 }
 
+interface RemoveMovieFromFavoritesProps {
+  movieId: number;
+  onSuccess: () => void;
+  userId: string;
+}
+
 interface SignOutUserProps {
   dispatch: Dispatch<any>;
 }
+
+export const addMovieToFavorites = ({
+  movieId,
+  onSuccess,
+  userId,
+}: AddMovieToFavoritesProps) => {
+  checkIfMovieIsAddedToFavorites(databaseURL, userId, movieId).then(
+    (checkResult) => {
+      if (!!checkResult) {
+        return;
+      }
+
+      set(
+        ref(db, `users/${userId}/favoriteMovies/${generateRandomUUID()}`),
+        movieId
+      ).then(() => onSuccess());
+    }
+  );
+};
 
 export const authenticateUser = ({
   dispatch,
@@ -181,6 +219,24 @@ export const registerUser = ({
         );
       }
     });
+};
+
+export const removeMovieFromFavorites = ({
+  movieId,
+  onSuccess,
+  userId,
+}: RemoveMovieFromFavoritesProps) => {
+  checkIfMovieIsAddedToFavorites(databaseURL, userId, movieId).then(
+    (checkResult) => {
+      if (!!!checkResult) {
+        return;
+      }
+
+      remove(ref(db, `users/${userId}/favoriteMovies/`)).then(() =>
+        onSuccess()
+      );
+    }
+  );
 };
 
 export const signOutUser = ({ dispatch }: SignOutUserProps) => {

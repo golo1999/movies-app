@@ -3,6 +3,8 @@ module.exports = function (api) {
   return {
     plugins: [
       "react-native-reanimated/plugin",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-private-methods",
       [
         "module:react-native-dotenv",
         {
@@ -22,6 +24,7 @@ module.exports = function (api) {
           allowUndefined: true,
         },
       ],
+      ["@babel/plugin-transform-flow-strip-types"],
     ],
     presets: [
       "babel-preset-expo",

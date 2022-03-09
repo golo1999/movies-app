@@ -13,7 +13,11 @@ import { getFormattedMovieGenresList } from "../themes/methods";
 // Variables
 import { COLORS } from "../themes/variables";
 
-const MovieDetails = () => {
+interface Props {
+  addedToFavorites: boolean;
+}
+
+const MovieDetails = ({ addedToFavorites }: Props) => {
   const selectedMovie: Movie = useSelector(
     (state: RootStateOrAny) => state.selectedMovie.selectedMovie
   );
@@ -32,6 +36,8 @@ const MovieDetails = () => {
   const formattedMovieTitle = `${title} (${year})`;
 
   const formattedMovieRuntime = `${runtime} minutes`;
+
+  console.log(`favorites: ${addedToFavorites}`);
 
   return (
     <ScrollView contentContainerStyle={[style.mainContainer]}>

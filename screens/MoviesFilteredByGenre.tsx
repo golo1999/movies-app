@@ -1,6 +1,6 @@
 // Standard packages
 import React from "react";
-import { useRoute } from "@react-navigation/native";
+import { RouteProp, useRoute } from "@react-navigation/native";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 // Components
@@ -13,9 +13,9 @@ import { Movie } from "../models/Movie";
 import { getMoviesListByGenre } from "../themes/methods";
 
 const MoviesFilteredByGenre = () => {
-  const route = useRoute();
+  const route = useRoute<RouteProp<{ params: { genre: string } }>>();
 
-  const selectedMoviesGenre: string = route.params?.genre;
+  const selectedMoviesGenre: string = route.params.genre;
 
   const moviesList: Movie[] = useSelector(
     (state: RootStateOrAny) => state.moviesList.moviesList

@@ -1,5 +1,5 @@
 // Standard packages
-import React from "react";
+import React, { useState } from "react";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
@@ -7,20 +7,34 @@ import {
 import { DrawerActions } from "@react-navigation/native";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
+// Redux
+import {
+  checkIfMovieIsAddedToFavorites,
+  getMovieFavoritesId,
+} from "../store/favorite-movies-list-actions";
+
 // Screens
 import Authentication from "../screens/Authentication";
 import MovieGenres from "../screens/MovieGenres";
 import MoviesFilteredByGenre from "../screens/MoviesFilteredByGenre";
 
 // Firebase
-import { signOutUser } from "../firebase/firebase-methods";
+import {
+  addMovieToFavorites,
+  removeMovieFromFavorites,
+  signOutUser,
+} from "../firebase/firebase-methods";
 
 // Components
 import CustomHeader from "../components/CustomHeader";
 import MovieDetails from "../screens/MovieDetails";
 
 // Models
+import { Movie } from "../models/Movie";
 import { User } from "../models/User";
+
+// Environment variables
+import { DATABASE_URL as databaseURL } from "@env";
 
 export type MovieCategoriesStackParamsList = {
   Authentication: undefined;
@@ -37,11 +51,28 @@ type MovieCategoriesStackScreenProp = NativeStackNavigationProp<
 const Stack = createNativeStackNavigator<MovieCategoriesStackParamsList>();
 
 export const MovieCategoriesStack = () => {
+  const [movieAddedToFavorites, setMovieAddedToFavorites] =
+    useState<boolean>(false);
+
   const dispatch = useDispatch();
 
   const authenticatedUser: User = useSelector(
     (state: RootStateOrAny) => state.auth.authenticatedUser
   );
+
+  const selectedMovie: Movie = useSelector(
+    (state: RootStateOrAny) => state.selectedMovie.selectedMovie
+  );
+
+  checkIfMovieIsAddedToFavorites(
+    databaseURL,
+    authenticatedUser.id,
+    selectedMovie.id
+  ).then((result) => {
+    setMovieAddedToFavorites(!!result);
+  });
+
+  const starIcon = movieAddedToFavorites ? "star" : "star-outline";
 
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
@@ -76,7 +107,6 @@ export const MovieCategoriesStack = () => {
       />
       <Stack.Screen
         name="MovieDetails"
-        component={MovieDetails}
         options={({ navigation }) => ({
           header: () => (
             <CustomHeader
@@ -85,10 +115,28 @@ export const MovieCategoriesStack = () => {
                 onPress: () => goBackHandler(navigation),
               }}
               headerRight={{
-                iconName: "star-outline",
+                iconName: starIcon,
                 onPress: () => {
                   if (userIsAuthenticated) {
-                    alert("Added to favorites");
+                    if (!movieAddedToFavorites) {
+                      addMovieToFavorites({
+                        movieId: selectedMovie.id,
+                        onSuccess: () =>
+                          setMovieAddedToFavorites(
+                            (previousValue) => !previousValue
+                          ),
+                        userId: authenticatedUser.id,
+                      });
+                    } else {
+                      removeMovieFromFavorites({
+                        movieId: selectedMovie.id,
+                        onSuccess: () =>
+                          setMovieAddedToFavorites(
+                            (previousValue) => !previousValue
+                          ),
+                        userId: authenticatedUser.id,
+                      });
+                    }
                   } else {
                     loginRedirectHandler(navigation);
                   }
@@ -98,7 +146,9 @@ export const MovieCategoriesStack = () => {
             />
           ),
         })}
-      />
+      >
+        {() => <MovieDetails addedToFavorites={movieAddedToFavorites} />}
+      </Stack.Screen>
       <Stack.Screen
         name="MovieGenres"
         component={MovieGenres}
