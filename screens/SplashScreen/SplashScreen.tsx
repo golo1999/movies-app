@@ -1,15 +1,18 @@
 // Standard packages
 import React, { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // Navigation
-import { AppStackParamsList } from "../navigation/AppStack";
+import { AppStackParamsList } from "../../navigation/AppStack";
 
 // Variables
-import { APP_NAME as appName, COLORS } from "../themes/variables";
+import { APP_NAME as appName, COLORS } from "../../themes/variables";
+
+// Stylings
+import { styles } from "./SplashScreen.styles";
 
 type MoviesListScreenProp = NativeStackNavigationProp<
   AppStackParamsList,
@@ -43,18 +46,3 @@ const SplashScreen = () => {
 };
 
 export default SplashScreen;
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: `center`,
-    backgroundColor: COLORS.PRIMARY,
-    flex: 1,
-    justifyContent: `center`,
-  },
-  logo: {
-    color: COLORS.SECONDARY,
-    fontSize: 50,
-    fontWeight: `bold`,
-    marginBottom: 8,
-  },
-});

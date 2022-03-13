@@ -2,9 +2,9 @@
 import { StyleSheet } from "react-native";
 
 // Variables
-import { COLORS } from "../themes/variables";
+import { COLORS } from "../../themes/variables";
 
-const customHeaderStyles = (headerHeight: number) =>
+export const styles = (headerHeight: number) =>
   StyleSheet.create({
     container: {
       alignItems: "center",
@@ -38,5 +38,3 @@ const customHeaderStyles = (headerHeight: number) =>
       justifyContent: "center",
     },
   });
-
-export default customHeaderStyles;

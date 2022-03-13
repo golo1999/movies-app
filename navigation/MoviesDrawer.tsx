@@ -18,7 +18,7 @@ import { signOutUser } from "../firebase/firebase-methods";
 import FavoriteMovies from "../screens/FavoriteMovies";
 
 // Components
-import CustomDrawer from "../components/CustomDrawer";
+import CustomDrawer from "../components/CustomDrawer/CustomDrawer";
 
 // Models
 import { User } from "../models/User";

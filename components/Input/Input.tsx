@@ -1,6 +1,9 @@
 // Standard packages
 import React, { MutableRefObject } from "react";
-import { StyleProp, StyleSheet, TextInput, ViewStyle } from "react-native";
+import { StyleProp, TextInput, ViewStyle } from "react-native";
+
+// Stylings
+import { styles as inputStyles } from "./Input.styles";
 
 type Props = {
   cursorColor?: string;
@@ -41,14 +44,10 @@ const CustomInput = ({
       ref={reference}
       secureTextEntry={type === `password`}
       selectionColor={cursorColor}
-      style={[style, inputStyle.input]}
+      style={[style, inputStyles.input]}
       value={value}
     />
   );
 };
 
 export default CustomInput;
-
-const inputStyle = StyleSheet.create({
-  input: { fontSize: 16, paddingHorizontal: 16, paddingVertical: 8 },
-});

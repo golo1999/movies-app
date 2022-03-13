@@ -9,7 +9,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MovieCategoriesStackParamsList } from "../navigation/MovieCategoriesStack";
 
 // Components
-import MovieGenresListItem from "../components/MovieGenresListItem";
+import MovieGenresListItem from "../components/MovieGenresListItem/MovieGenresListItem";
 
 // Models
 import { Movie } from "../models/Movie";

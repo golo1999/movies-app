@@ -3,7 +3,6 @@ import React from "react";
 import {
   GestureResponderEvent,
   StyleProp,
-  StyleSheet,
   Text,
   TouchableHighlight,
   View,
@@ -11,7 +10,10 @@ import {
 } from "react-native";
 
 // Variables
-import { COLORS } from "../themes/variables";
+import { COLORS } from "../../themes/variables";
+
+// Stylings
+import { styles } from "./MovieGenresListItem.styles";
 
 type Props = {
   genre: string;
@@ -36,21 +38,3 @@ const MovieGenresListItem = ({ genre, onPress, style }: Props) => {
 };
 
 export default MovieGenresListItem;
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: `center`,
-    backgroundColor: COLORS.SECONDARY,
-    borderColor: COLORS.PRIMARY,
-    borderWidth: 5,
-    display: `flex`,
-    flexBasis: "50%",
-    flexDirection: `column`,
-  },
-  genre: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: `bold`,
-    textAlign: `center`,
-  },
-});

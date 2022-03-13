@@ -1,5 +1,7 @@
+// Standard packages
 import { StyleSheet } from "react-native";
 
+// Variables
 import { COLORS } from "../themes/variables";
 
 const globalStyles = StyleSheet.create({

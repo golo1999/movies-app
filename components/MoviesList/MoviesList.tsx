@@ -1,6 +1,6 @@
 // Standard packages
 import React, { useCallback, useState } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
@@ -17,13 +17,13 @@ import Loading from "../../screens/Loading";
 import NoData from "../../screens/NoData";
 
 // Components
-import MoviesListItem from "./MoviesListItem";
+import MoviesListItem from "../MoviesListItem/MoviesListItem";
 
 // Models
 import { Movie } from "../../models/Movie";
 
-// Variables
-import { COLORS } from "../../themes/variables";
+// Stylings
+import { styles } from "./MoviesList.styles";
 
 type Props = {
   loadingMessage: string;
@@ -102,23 +102,3 @@ const MoviesList = ({
 };
 
 export default MoviesList;
-
-const styles = StyleSheet.create({
-  container: { backgroundColor: COLORS.PRIMARY, flex: 1 },
-  loadingContainer: {
-    alignItems: `center`,
-    backgroundColor: COLORS.PRIMARY,
-    flex: 1,
-    justifyContent: `center`,
-  },
-  loadingText: { color: `white`, fontSize: 24 },
-  moviesList: {
-    alignItems: `flex-start`,
-    display: `flex`,
-  },
-  moviesListItem: {
-    alignItems: `center`,
-    padding: 10,
-    justifyContent: `center`,
-  },
-});

@@ -5,7 +5,7 @@ import { GestureResponderEvent, Text, View } from "react-native";
 import { useHeaderHeight } from "@react-navigation/elements";
 
 // Stylings
-import customHeaderStyles from "../styles/custom-header-styles";
+import { styles } from "./CustomHeader.styles";
 
 type Props = {
   headerLeft?: {
@@ -23,27 +23,27 @@ const CustomHeader = ({ headerLeft, headerRight, title }: Props) => {
   const headerHeight = useHeaderHeight();
 
   return (
-    <View style={customHeaderStyles(headerHeight).container}>
-      <View style={[customHeaderStyles(headerHeight).leftIconContainer]}>
+    <View style={styles(headerHeight).container}>
+      <View style={[styles(headerHeight).leftIconContainer]}>
         {headerLeft && (
           <MaterialIcons
             name={headerLeft.iconName}
             onPress={headerLeft.onPress}
-            style={[customHeaderStyles(headerHeight).icon]}
+            style={[styles(headerHeight).icon]}
           />
         )}
       </View>
-      <View style={[customHeaderStyles(headerHeight).titleContainer]}>
-        <Text numberOfLines={1} style={customHeaderStyles(headerHeight).title}>
+      <View style={[styles(headerHeight).titleContainer]}>
+        <Text numberOfLines={1} style={styles(headerHeight).title}>
           {title}
         </Text>
       </View>
-      <View style={[customHeaderStyles(headerHeight).rightIconContainer]}>
+      <View style={[styles(headerHeight).rightIconContainer]}>
         {headerRight && (
           <MaterialIcons
             name={headerRight.iconName}
             onPress={headerRight.onPress}
-            style={[customHeaderStyles(headerHeight).icon]}
+            style={[styles(headerHeight).icon]}
           />
         )}
       </View>

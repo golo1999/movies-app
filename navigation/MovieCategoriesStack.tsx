@@ -14,7 +14,7 @@ import {
 } from "../store/favorite-movies-list-actions";
 
 // Screens
-import Authentication from "../screens/Authentication";
+import Authentication from "../screens/Authentication/Authentication";
 import MovieGenres from "../screens/MovieGenres";
 import MoviesFilteredByGenre from "../screens/MoviesFilteredByGenre";
 
@@ -26,7 +26,7 @@ import {
 } from "../firebase/firebase-methods";
 
 // Components
-import CustomHeader from "../components/CustomHeader";
+import CustomHeader from "../components/CustomHeader/CustomHeader";
 import MovieDetails from "../screens/MovieDetails";
 
 // Models

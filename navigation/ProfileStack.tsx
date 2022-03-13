@@ -10,7 +10,7 @@ import { DrawerActions } from "@react-navigation/native";
 import Profile from "../screens/Profile";
 
 // Components
-import CustomHeader from "../components/CustomHeader";
+import CustomHeader from "../components/CustomHeader/CustomHeader";
 
 export type ProfileStackParamsList = {
   Profile: undefined;

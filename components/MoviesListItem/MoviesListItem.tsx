@@ -4,7 +4,6 @@ import {
   GestureResponderEvent,
   Image,
   StyleProp,
-  StyleSheet,
   Text,
   TouchableHighlight,
   View,
@@ -17,6 +16,9 @@ import { Movie } from "../../models/Movie";
 // Variables
 import { COLORS } from "../../themes/variables";
 
+// Stylings
+import { styles as moviesListItemStyles } from "./MoviesListItem.styles";
+
 type Props = {
   movie: Movie;
   onPress?: (event: GestureResponderEvent) => void;
@@ -27,7 +29,7 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
   return (
     <TouchableHighlight
       onPress={onPress}
-      style={[style, styles.container]}
+      style={[style, moviesListItemStyles.container]}
       underlayColor={COLORS.TERTIARY}
     >
       <View>
@@ -39,7 +41,7 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
         <Text
           numberOfLines={1}
           style={[
-            styles.title,
+            moviesListItemStyles.title,
             {
               color: `white`,
               fontSize: 16,
@@ -56,13 +58,3 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
 };
 
 export default MoviesListItem;
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: `center`,
-    display: `flex`,
-    flexBasis: "50%",
-    flexDirection: `column`,
-  },
-  title: { textAlign: `center` },
-});

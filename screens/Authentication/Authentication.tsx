@@ -3,15 +3,15 @@ import React, { useState } from "react";
 import { Text, View } from "react-native";
 
 // Components
-import ForgotPassword from "../components/Authentication/ForgotPassword";
-import Login from "../components/Authentication/Login";
-import Register from "../components/Authentication/Register";
+import ForgotPassword from "../../components/ForgotPassword/ForgotPassword";
+import Login from "../../components/Login/Login";
+import Register from "../../components/Register/Register";
 
 // Variables
-import { APP_NAME as appName } from "../themes/variables";
+import { APP_NAME as appName } from "../../themes/variables";
 
 // Stylings
-import authenticationStyles from "../styles/authentication-styles";
+import { styles } from "./Authentication.styles";
 
 const Authentication = () => {
   const [authenticationType, setAuthenticationType] = useState("LOGIN");
@@ -47,8 +47,8 @@ const Authentication = () => {
   };
 
   return (
-    <View style={authenticationStyles.container}>
-      <Text style={authenticationStyles.logo}>{appName}</Text>
+    <View style={styles.container}>
+      <Text style={styles.logo}>{appName}</Text>
       {selectedAuthenticationType}
     </View>
   );

@@ -4,9 +4,9 @@ import React from "react";
 import { GestureResponderEvent, Text, View } from "react-native";
 
 // Components
-import CustomButton from "../UI/Button";
-import CustomInput from "../UI/Input";
-import { CustomText } from "../UI/Text";
+import CustomButton from "../Button/Button";
+import CustomInput from "../Input/Input";
+import { CustomText } from "../Text/Text";
 
 // Validation
 import { forgotPasswordSchema } from "../../validation/forgot-password-validation";
@@ -22,8 +22,8 @@ import {
 } from "../../themes/variables";
 
 // Stylings
-import { forgotPasswordStyles } from "../../styles/authentication-styles";
 import globalStyles from "../../styles/global-styles";
+import { styles } from "./ForgotPassword.styles";
 
 type Props = {
   redirectToLoginHandler: (event?: GestureResponderEvent) => void;
@@ -62,26 +62,20 @@ const ForgotPassword = ({ redirectToLoginHandler }: Props) => {
             style={[
               authenticationInputStyle,
               authenticationInputTextStyle,
-              forgotPasswordStyles.input,
+              styles.input,
             ]}
             value={formikProps.values.email}
           />
           <CustomButton
             onPress={() => formikProps.handleSubmit()}
-            style={[
-              authenticationButtonStyle,
-              forgotPasswordStyles.resetButton,
-            ]}
+            style={[authenticationButtonStyle, styles.resetButton]}
             text="Reset"
             textStyle={authenticationButtonTextStyle}
             underlayColor={COLORS.TERTIARY}
           />
           <CustomText
             onPress={redirectToLoginHandler}
-            style={[
-              authenticationRedirectTextStyle,
-              forgotPasswordStyles.logInText,
-            ]}
+            style={[authenticationRedirectTextStyle, styles.logInText]}
             text="Login"
           />
         </View>

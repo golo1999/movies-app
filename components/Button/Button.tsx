@@ -12,6 +12,9 @@ import {
   ViewStyle,
 } from "react-native";
 
+// Stylings
+import { styles as buttonStyles } from "./Button.styles";
+
 interface CustomButtonProps {
   onPress: (event: GestureResponderEvent) => void;
   style: StyleProp<ViewStyle>;
@@ -37,10 +40,10 @@ const CustomButton = ({
   return (
     <TouchableHighlight
       onPress={onPress}
-      style={[style, buttonStyle.button]}
+      style={[style, buttonStyles.button]}
       underlayColor={underlayColor}
     >
-      <Text style={[textStyle, buttonStyle.text]}>{text}</Text>
+      <Text style={[textStyle, buttonStyles.text]}>{text}</Text>
     </TouchableHighlight>
   );
 };
@@ -52,17 +55,12 @@ export const CustomNoUnderlayButton = ({
   textStyle,
 }: CustomNoUnderlayButtonProps) => {
   return (
-    <View style={[style, buttonStyle.button]}>
+    <View style={[style, buttonStyles.button]}>
       <TouchableWithoutFeedback onPress={onPress}>
-        <Text style={[textStyle, buttonStyle.text]}>{text}</Text>
+        <Text style={[textStyle, buttonStyles.text]}>{text}</Text>
       </TouchableWithoutFeedback>
     </View>
   );
 };
-
-const buttonStyle = StyleSheet.create({
-  button: { padding: 8 },
-  text: { fontSize: 16, fontWeight: `bold`, textAlign: `center` },
-});
 
 export default CustomButton;

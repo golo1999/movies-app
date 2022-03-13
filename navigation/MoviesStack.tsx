@@ -18,12 +18,12 @@ import {
 } from "../firebase/firebase-methods";
 
 // Screens
-import Authentication from "../screens/Authentication";
+import Authentication from "../screens/Authentication/Authentication";
 import Movies from "../screens/Movies";
 import MovieDetails from "../screens/MovieDetails";
 
 // Components
-import CustomHeader from "../components/CustomHeader";
+import CustomHeader from "../components/CustomHeader/CustomHeader";
 
 // Models
 import { Movie } from "../models/Movie";

@@ -10,7 +10,7 @@ import { fetchAuthenticatedUser } from "../store/auth-actions";
 import MoviesDrawer from "./MoviesDrawer";
 
 // Components
-import SplashScreen from "../screens/SplashScreen";
+import SplashScreen from "../screens/SplashScreen/SplashScreen";
 
 export type AppStackParamsList = {
   MoviesDrawer: undefined;

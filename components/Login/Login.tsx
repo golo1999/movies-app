@@ -13,9 +13,9 @@ import { MoviesStackParamsList } from "../../navigation/MoviesStack";
 import { authenticateUser } from "../../firebase/firebase-methods";
 
 // Components
-import CustomButton from "../UI/Button";
-import CustomInput from "../UI/Input";
-import { CustomText } from "../UI/Text";
+import CustomButton from "../Button/Button";
+import CustomInput from "../Input/Input";
+import { CustomText } from "../Text/Text";
 
 // Validation
 import { loginSchema } from "../../validation/login-validation";
@@ -31,8 +31,8 @@ import {
 } from "../../themes/variables";
 
 // Stylings
-import { loginStyles } from "../../styles/authentication-styles";
 import globalStyles from "../../styles/global-styles";
+import { styles } from "./Login.styles";
 
 type Props = {
   redirectToForgotPasswordHandler(): void;
@@ -110,7 +110,7 @@ const Login = ({
             style={[
               authenticationInputStyle,
               authenticationInputTextStyle,
-              loginStyles.input,
+              styles.input,
             ]}
             value={formikProps.values.email}
           />
@@ -128,29 +128,26 @@ const Login = ({
             style={[
               authenticationInputStyle,
               authenticationInputTextStyle,
-              loginStyles.input,
+              styles.input,
             ]}
             type="password"
             value={formikProps.values.password}
           />
           <CustomText
             onPress={redirectToForgotPasswordHandler}
-            style={[
-              authenticationRedirectTextStyle,
-              loginStyles.forgotPasswordText,
-            ]}
+            style={[authenticationRedirectTextStyle, styles.forgotPasswordText]}
             text="Forgot password?"
           />
           <CustomButton
             onPress={() => formikProps.handleSubmit()}
-            style={[authenticationButtonStyle, loginStyles.loginButton]}
+            style={[authenticationButtonStyle, styles.loginButton]}
             text="Log in"
             textStyle={authenticationButtonTextStyle}
             underlayColor={COLORS.TERTIARY}
           />
           <CustomText
             onPress={redirectToRegisterHandler}
-            style={[authenticationRedirectTextStyle, loginStyles.registerText]}
+            style={[authenticationRedirectTextStyle, styles.registerText]}
             text="Register"
           />
         </View>

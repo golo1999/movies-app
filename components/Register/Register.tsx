@@ -4,9 +4,9 @@ import React from "react";
 import { GestureResponderEvent, Text, View } from "react-native";
 
 // Components
-import CustomButton from "../UI/Button";
-import CustomInput from "../UI/Input";
-import { CustomText } from "../UI/Text";
+import CustomButton from "../Button/Button";
+import CustomInput from "../Input/Input";
+import { CustomText } from "../Text/Text";
 
 // Validation
 import { registerSchema } from "../../validation/register-validation";
@@ -25,8 +25,8 @@ import {
 import { registerUser } from "../../firebase/firebase-methods";
 
 // Stylings
-import { registerStyles } from "../../styles/authentication-styles";
 import globalStyles from "../../styles/global-styles";
+import { styles } from "./Register.styles";
 
 type Props = {
   redirectToLoginHandler: (event?: GestureResponderEvent) => void;
@@ -66,7 +66,7 @@ const Register = ({ redirectToLoginHandler }: Props) => {
             style={[
               authenticationInputStyle,
               authenticationInputTextStyle,
-              registerStyles.input,
+              styles.input,
             ]}
             value={formikProps.values.email}
           />
@@ -84,7 +84,7 @@ const Register = ({ redirectToLoginHandler }: Props) => {
             style={[
               authenticationInputStyle,
               authenticationInputTextStyle,
-              registerStyles.input,
+              styles.input,
             ]}
             value={formikProps.values.name}
           />
@@ -102,21 +102,21 @@ const Register = ({ redirectToLoginHandler }: Props) => {
             style={[
               authenticationInputStyle,
               authenticationInputTextStyle,
-              registerStyles.input,
+              styles.input,
             ]}
             type="password"
             value={formikProps.values.password}
           />
           <CustomButton
             onPress={() => formikProps.handleSubmit()}
-            style={[authenticationButtonStyle, registerStyles.registerButton]}
+            style={[authenticationButtonStyle, styles.registerButton]}
             text="Register"
             textStyle={authenticationButtonTextStyle}
             underlayColor={COLORS.TERTIARY}
           />
           <CustomText
             onPress={redirectToLoginHandler}
-            style={[authenticationRedirectTextStyle, registerStyles.logInText]}
+            style={[authenticationRedirectTextStyle, styles.logInText]}
             text="Login"
           />
         </View>

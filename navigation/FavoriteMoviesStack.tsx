@@ -21,7 +21,7 @@ import FavoriteMovies from "../screens/FavoriteMovies";
 import MovieDetails from "../screens/MovieDetails";
 
 // Components
-import CustomHeader from "../components/CustomHeader";
+import CustomHeader from "../components/CustomHeader/CustomHeader";
 
 // Models
 import { Movie } from "../models/Movie";

@@ -4,7 +4,7 @@ import { GestureResponderEvent, StyleProp, TextStyle } from "react-native";
 import { fireEvent, render } from "@testing-library/react-native";
 
 // Components
-import { CustomText as _CustomText } from "../Text";
+import { CustomText as _CustomText } from "./Text";
 
 interface Props {
   onPress?: (event: GestureResponderEvent) => void;
