@@ -1,8 +1,7 @@
 // Standard packages
 import axios from "axios";
-import React, { useCallback, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { useFocusEffect } from "@react-navigation/native";
 
 // Redux
 import { fetchMoviesList } from "../store/movies-list-actions";
@@ -19,34 +18,30 @@ const Movies = () => {
 
   const dispatch = useDispatch();
 
-  useFocusEffect(
-    useCallback(() => {
-      dispatch(moviesListActions.clearMoviesList());
-      dispatch(fetchMoviesList());
-    }, [])
-  );
+  useEffect(() => {
+    dispatch(moviesListActions.clearMoviesList());
+    dispatch(fetchMoviesList());
+  }, [dispatch]);
 
-  useFocusEffect(
-    useCallback(() => {
-      const cancelTokenSource = axios.CancelToken.source();
+  useEffect(() => {
+    const cancelTokenSource = axios.CancelToken.source();
 
-      axios
-        .get("https://yts.mx/api/v2/list_movies.json", {
-          cancelToken: cancelTokenSource.token,
-        })
-        .then((response) =>
-          response.data
-            ? (Object.values(response.data.data.movies) as Movie[]).length
-            : 0
-        )
-        .then((moviesListLength) => {
-          setNumberOfMovies(moviesListLength);
-        });
+    axios
+      .get("https://yts.mx/api/v2/list_movies.json", {
+        cancelToken: cancelTokenSource.token,
+      })
+      .then((response) =>
+        response.data
+          ? (Object.values(response.data.data.movies) as Movie[]).length
+          : 0
+      )
+      .then((moviesListLength) => {
+        setNumberOfMovies(moviesListLength);
+      });
 
-      return () =>
-        cancelTokenSource.cancel("Cancelled fetching number of movies");
-    }, [])
-  );
+    return () =>
+      cancelTokenSource.cancel("Cancelled fetching number of movies");
+  }, []);
 
   const moviesList: Movie[] = useSelector(
     (state: RootStateOrAny) => state.moviesList.moviesList
