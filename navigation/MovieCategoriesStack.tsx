@@ -10,7 +10,7 @@ import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 // Redux
 import {
   checkIfMovieIsAddedToFavorites,
-  getMovieFavoritesId,
+  getFavoriteMovieKey,
 } from "../store/favorite-movies-list-actions";
 
 // Screens
@@ -51,7 +51,7 @@ type MovieCategoriesStackScreenProp = NativeStackNavigationProp<
 const Stack = createNativeStackNavigator<MovieCategoriesStackParamsList>();
 
 export const MovieCategoriesStack = () => {
-  const [movieAddedToFavorites, setMovieAddedToFavorites] =
+  const [movieIsAddedToFavorites, setMovieIsAddedToFavorites] =
     useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -69,10 +69,10 @@ export const MovieCategoriesStack = () => {
     authenticatedUser.id,
     selectedMovie.id
   ).then((result) => {
-    setMovieAddedToFavorites(!!result);
+    setMovieIsAddedToFavorites(!!result);
   });
 
-  const starIcon = movieAddedToFavorites ? "star" : "star-outline";
+  const starIcon = movieIsAddedToFavorites ? "star" : "star-outline";
 
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
@@ -118,11 +118,11 @@ export const MovieCategoriesStack = () => {
                 iconName: starIcon,
                 onPress: () => {
                   if (userIsAuthenticated) {
-                    if (!movieAddedToFavorites) {
+                    if (!movieIsAddedToFavorites) {
                       addMovieToFavorites({
                         movieId: selectedMovie.id,
                         onSuccess: () =>
-                          setMovieAddedToFavorites(
+                          setMovieIsAddedToFavorites(
                             (previousValue) => !previousValue
                           ),
                         userId: authenticatedUser.id,
@@ -131,7 +131,7 @@ export const MovieCategoriesStack = () => {
                       removeMovieFromFavorites({
                         movieId: selectedMovie.id,
                         onSuccess: () =>
-                          setMovieAddedToFavorites(
+                          setMovieIsAddedToFavorites(
                             (previousValue) => !previousValue
                           ),
                         userId: authenticatedUser.id,
@@ -147,7 +147,7 @@ export const MovieCategoriesStack = () => {
           ),
         })}
       >
-        {() => <MovieDetails addedToFavorites={movieAddedToFavorites} />}
+        {() => <MovieDetails addedToFavorites={movieIsAddedToFavorites} />}
       </Stack.Screen>
       <Stack.Screen
         name="MovieGenres"

@@ -15,13 +15,13 @@ const customHeaderStyles = (headerHeight: number) =>
     },
     icon: { color: "white", fontSize: 24 },
     leftIconContainer: {
-      flex: 1,
+      flexGrow: 1,
       flexDirection: "row",
       justifyContent: "flex-start",
       marginStart: 16,
     },
     rightIconContainer: {
-      flex: 1,
+      flexGrow: 1,
       flexDirection: "row",
       justifyContent: "flex-end",
       marginEnd: 16,

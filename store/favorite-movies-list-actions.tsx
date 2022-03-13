@@ -35,26 +35,15 @@ export const fetchFavoriteMoviesList = (
   userId: string
 ) => {
   return async (dispatch: Dispatch<any>) => {
-    const fetchFavoriteMoviesIDsList = async (): Promise<number[]> => {
+    const fetchFavoriteMoviesIDsList = async () => {
       const response = await axios.get(
         `${databaseURL}/users/${userId}/favoriteMovies.json`
       );
 
-      const data = await response.data;
-
-      if (!data.data) {
-        console.log("nothing");
-      }
-
-      console.log("fetchFavoriteMoviesIDsList");
-      console.log(data);
-
-      return data;
+      return await response.data;
     };
 
-    const fetchFavoriteMovieDetails = async (
-      favoriteMovieId: number
-    ): Promise<Movie[]> => {
+    const fetchFavoriteMovieDetails = async (favoriteMovieId: number) => {
       const response = await axios.get(
         `https://yts.mx/api/v2/movie_details.json?movie_id=${favoriteMovieId}`
       );
@@ -65,16 +54,29 @@ export const fetchFavoriteMoviesList = (
     };
 
     try {
-      const favoriteMoviesIDsList = await fetchFavoriteMoviesIDsList();
+      Object.entries(await fetchFavoriteMoviesIDsList()).forEach(
+        async (idsListEntries: [string, any]) => {
+          const movieId: number = idsListEntries[1];
 
-      favoriteMoviesIDsList.forEach((movieId) => {
-        console.log(movieId);
-      });
+          const fetchedMovieDetailsList = await fetchFavoriteMovieDetails(
+            movieId
+          );
+
+          const fetchedMovie = new Movie(fetchedMovieDetailsList.data.movie);
+
+          // console.log(fetchedMovie.title);
+          dispatch(
+            favoriteMoviesListActions.addFavoriteMovie({
+              favoriteMovie: fetchedMovie,
+            })
+          );
+        }
+      );
     } catch (error) {}
   };
 };
 
-export const getMovieFavoritesId = async (
+export const getFavoriteMovieKey = async (
   databaseURL: string,
   userId: string,
   searchedMovieId: number
@@ -83,9 +85,36 @@ export const getMovieFavoritesId = async (
     `${databaseURL}/users/${userId}/favoriteMovies.json`
   );
 
-  const favoriteMoviesList = await response.data;
+  const favoriteMoviesList: (string | number)[][] = Object.entries(
+    await response.data
+  );
 
-  console.log(favoriteMoviesList.l0ibdkgzm93bcdwbvhb);
+  let favoriteMovieKey = "";
 
-  return "";
+  favoriteMoviesList.forEach((favoriteMovie: (string | number)[]) => {
+    const favoriteMoviesListValues = Object.values(favoriteMovie);
+
+    if (favoriteMoviesListValues.includes(searchedMovieId)) {
+      favoriteMovieKey = favoriteMoviesListValues[0].toString();
+    }
+  });
+
+  return favoriteMovieKey;
+};
+
+export const getFavoriteMoviesListLength = async (
+  databaseURL: string,
+  userId: string
+): Promise<number> => {
+  const response = await axios.get(
+    `${databaseURL}/users/${userId}/favoriteMovies.json`
+  );
+
+  const responseData = response.data;
+
+  if (!responseData) {
+    return 0;
+  }
+
+  return Object.entries<(string | number)[][]>(responseData).length;
 };

@@ -6,6 +6,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 
 // Navigation
+import { FavoriteMoviesStack } from "./FavoriteMoviesStack";
 import MovieCategoriesStack from "./MovieCategoriesStack";
 import MoviesStack from "./MoviesStack";
 import ProfileStack from "./ProfileStack";
@@ -13,16 +14,18 @@ import ProfileStack from "./ProfileStack";
 // Firebase
 import { signOutUser } from "../firebase/firebase-methods";
 
+// Screens
+import FavoriteMovies from "../screens/FavoriteMovies";
+
 // Components
 import CustomDrawer from "../components/CustomDrawer";
-import FavoriteMovies from "../screens/FavoriteMovies";
 
 // Models
 import { User } from "../models/User";
 
 export type MoviesDrawerParamsList = {
   Authentication: undefined;
-  FavoriteMovies: undefined;
+  FavoriteMoviesStack: undefined;
   MovieCategoriesStack: undefined;
   MoviesStack: undefined;
   ProfileStack: undefined;
@@ -76,8 +79,8 @@ const MoviesDrawer = () => {
       />
       {userIsAuthenticated && (
         <Drawer.Screen
-          name="FavoriteMovies"
-          component={FavoriteMovies}
+          name="FavoriteMoviesStack"
+          component={FavoriteMoviesStack}
           options={{ title: "Favorites" }}
         />
       )}

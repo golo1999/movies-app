@@ -17,11 +17,13 @@ import {
   signOutUser,
 } from "../firebase/firebase-methods";
 
-// Components
+// Screens
 import Authentication from "../screens/Authentication";
-import CustomHeader from "../components/CustomHeader";
-import MovieDetails from "../screens/MovieDetails";
 import Movies from "../screens/Movies";
+import MovieDetails from "../screens/MovieDetails";
+
+// Components
+import CustomHeader from "../components/CustomHeader";
 
 // Models
 import { Movie } from "../models/Movie";
@@ -44,7 +46,7 @@ type MoviesStackScreenProp = NativeStackNavigationProp<
 const Stack = createNativeStackNavigator<MoviesStackParamsList>();
 
 export const MoviesStack = () => {
-  const [movieAddedToFavorites, setMovieAddedToFavorites] =
+  const [movieIsAddedToFavorites, setMovieIsAddedToFavorites] =
     useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -62,10 +64,10 @@ export const MoviesStack = () => {
     authenticatedUser.id,
     selectedMovie.id
   ).then((result) => {
-    setMovieAddedToFavorites(!!result);
+    setMovieIsAddedToFavorites(!!result);
   });
 
-  const starIcon = movieAddedToFavorites ? "star" : "star-outline";
+  const starIcon = movieIsAddedToFavorites ? "star" : "star-outline";
 
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
@@ -136,11 +138,11 @@ export const MoviesStack = () => {
                 iconName: starIcon,
                 onPress: () => {
                   if (userIsAuthenticated) {
-                    if (!movieAddedToFavorites) {
+                    if (!movieIsAddedToFavorites) {
                       addMovieToFavorites({
                         movieId: selectedMovie.id,
                         onSuccess: () =>
-                          setMovieAddedToFavorites(
+                          setMovieIsAddedToFavorites(
                             (previousValue) => !previousValue
                           ),
                         userId: authenticatedUser.id,
@@ -149,7 +151,7 @@ export const MoviesStack = () => {
                       removeMovieFromFavorites({
                         movieId: selectedMovie.id,
                         onSuccess: () =>
-                          setMovieAddedToFavorites(
+                          setMovieIsAddedToFavorites(
                             (previousValue) => !previousValue
                           ),
                         userId: authenticatedUser.id,
@@ -165,7 +167,7 @@ export const MoviesStack = () => {
           ),
         })}
       >
-        {() => <MovieDetails addedToFavorites={movieAddedToFavorites} />}
+        {() => <MovieDetails addedToFavorites={movieIsAddedToFavorites} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

@@ -14,7 +14,10 @@ import { Alert } from "react-native";
 import { Dispatch } from "@reduxjs/toolkit";
 
 // Redux
-import { checkIfMovieIsAddedToFavorites } from "../store/favorite-movies-list-actions";
+import {
+  checkIfMovieIsAddedToFavorites,
+  getFavoriteMovieKey,
+} from "../store/favorite-movies-list-actions";
 import { authActions } from "../store/auth-slice";
 
 // Firebase
@@ -232,8 +235,17 @@ export const removeMovieFromFavorites = ({
         return;
       }
 
-      remove(ref(db, `users/${userId}/favoriteMovies/`)).then(() =>
-        onSuccess()
+      getFavoriteMovieKey(databaseURL, userId, movieId).then(
+        (favoriteMovieKeyResult) => {
+          if (favoriteMovieKeyResult.trim().length > 0) {
+            remove(
+              ref(
+                db,
+                `users/${userId}/favoriteMovies/${favoriteMovieKeyResult}`
+              )
+            ).then(() => onSuccess());
+          }
+        }
       );
     }
   );

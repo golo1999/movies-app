@@ -7,7 +7,7 @@ import { Movie } from "../models/Movie";
 const initialState = { favoriteMoviesList: [] as Movie[] };
 
 const favoriteMoviesListSlice = createSlice({
-  name: "moviesList",
+  name: "favoriteMoviesList",
   initialState,
   reducers: {
     addFavoriteMovie: (state, action) => {
