@@ -5,12 +5,16 @@ import {
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 import { DrawerActions } from "@react-navigation/native";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+
+// Redux
+import { checkIfMovieIsAddedToFavorites } from "../store/favorite-movies-list-actions";
 
 // Firebase
 import {
   addMovieToFavorites,
   removeMovieFromFavorites,
+  signOutUser,
 } from "../firebase/firebase-methods";
 
 // Screens
@@ -23,6 +27,9 @@ import CustomHeader from "../components/CustomHeader";
 // Models
 import { Movie } from "../models/Movie";
 import { User } from "../models/User";
+
+// Environment variables
+import { DATABASE_URL as databaseURL } from "@env";
 
 export type FavoriteMoviesStackParamsList = {
   FavoriteMovies: undefined;
@@ -47,6 +54,14 @@ export const FavoriteMoviesStack = () => {
   const selectedMovie: Movie = useSelector(
     (state: RootStateOrAny) => state.selectedMovie.selectedMovie
   );
+
+  checkIfMovieIsAddedToFavorites(
+    databaseURL,
+    authenticatedUser.id,
+    selectedMovie.id
+  ).then((result) => {
+    setMovieIsAddedToFavorites(!!result);
+  });
 
   const starIcon = movieIsAddedToFavorites ? "star" : "star-outline";
 
@@ -76,7 +91,6 @@ export const FavoriteMoviesStack = () => {
         })}
       />
       <Stack.Screen
-        component={MovieDetails}
         name="MovieDetails"
         options={({ navigation }) => ({
           header: () => (
@@ -113,7 +127,9 @@ export const FavoriteMoviesStack = () => {
             />
           ),
         })}
-      />
+      >
+        {() => <MovieDetails addedToFavorites={movieIsAddedToFavorites} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };
