@@ -30,6 +30,7 @@ const MoviesFilteredByGenre = () => {
     <MoviesList
       loadingMessage={`Filtering ${selectedMoviesGenre.toLowerCase()} movies...`}
       moviesList={filteredMoviesList}
+      noDataMessage="No data found..."
       numberOfMovies={filteredMoviesList.length}
     />
   );

@@ -1,9 +1,10 @@
 // Standard packages
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 
 // Redux
 import { selectedMovieActions } from "../../store/selected-movie-slice";
@@ -13,6 +14,7 @@ import { MoviesStackParamsList } from "../../navigation/MoviesStack";
 
 // Screens
 import Loading from "../../screens/Loading";
+import NoData from "../../screens/NoData";
 
 // Components
 import MoviesListItem from "./MoviesListItem";
@@ -26,6 +28,7 @@ import { COLORS } from "../../themes/variables";
 type Props = {
   loadingMessage: string;
   moviesList: Movie[];
+  noDataMessage: string;
   numberOfMovies: number;
 };
 
@@ -34,7 +37,12 @@ type MovieDetailsScreenProp = NativeStackNavigationProp<
   "Movies"
 >;
 
-const MoviesList = ({ loadingMessage, moviesList, numberOfMovies }: Props) => {
+const MoviesList = ({
+  loadingMessage,
+  moviesList,
+  noDataMessage,
+  numberOfMovies,
+}: Props) => {
   const [pageIsLoading, setPageIsLoading] = useState(true);
 
   const navigation = useNavigation<MovieDetailsScreenProp>();
@@ -43,27 +51,31 @@ const MoviesList = ({ loadingMessage, moviesList, numberOfMovies }: Props) => {
 
   const listSuccessfullyRetrieved = moviesList.length === numberOfMovies;
 
-  useEffect(() => {
-    if (listSuccessfullyRetrieved && pageIsLoading) {
-      setPageIsLoading((previousValue) => !previousValue);
-    }
-  }, [listSuccessfullyRetrieved, pageIsLoading]);
-
-  const logInHandler = () => {
-    navigation.navigate("Authentication");
-  };
+  useFocusEffect(
+    useCallback(() => {
+      if (listSuccessfullyRetrieved && pageIsLoading) {
+        setPageIsLoading((previousValue) => !previousValue);
+      }
+    }, [listSuccessfullyRetrieved, pageIsLoading])
+  );
 
   const moviePressHandler = (movie: Movie) => {
     if (movie) {
       dispatch(selectedMovieActions.clearSelectedMovie());
       dispatch(selectedMovieActions.setSelectedMovie({ selectedMovie: movie }));
-      navigation.navigate(`MovieDetails`);
+      navigation.navigate("MovieDetails");
     }
   };
 
   return (
     <>
-      {!pageIsLoading ? (
+      {pageIsLoading ? (
+        <Loading
+          containerStyle={styles.loadingContainer}
+          message={loadingMessage}
+          textStyle={styles.loadingText}
+        />
+      ) : moviesList.length > 0 ? (
         <View style={styles.container}>
           <FlatList
             contentContainerStyle={styles.moviesList}
@@ -79,9 +91,9 @@ const MoviesList = ({ loadingMessage, moviesList, numberOfMovies }: Props) => {
           />
         </View>
       ) : (
-        <Loading
+        <NoData
           containerStyle={styles.loadingContainer}
-          message={loadingMessage}
+          message={noDataMessage}
           textStyle={styles.loadingText}
         />
       )}

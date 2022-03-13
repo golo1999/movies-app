@@ -112,9 +112,7 @@ export const getFavoriteMoviesListLength = async (
 
   const responseData = response.data;
 
-  if (!responseData) {
-    return 0;
-  }
-
-  return Object.entries<(string | number)[][]>(responseData).length;
+  return responseData
+    ? Object.entries<(string | number)[][]>(responseData).length
+    : 0;
 };

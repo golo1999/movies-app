@@ -4,13 +4,12 @@ import { StyleSheet, Text, View } from "react-native";
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 // Components
-import CustomButton, { CustomNoUnderlayButton } from "./UI/Button";
+import { CustomNoUnderlayButton } from "./UI/Button";
 
 // Models
 import { User } from "../models/User";

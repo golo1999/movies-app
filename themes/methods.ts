@@ -75,12 +75,6 @@ export const getMoviesListByGenre = (
 ): Movie[] => {
   let filteredMoviesList: Movie[] = [];
 
-  // moviesList.forEach((movie) => {
-  //   const { genres: genresList } = movie;
-
-  //   genresList.forEach((genre) => {});
-  // });
-
   filteredMoviesList = moviesList.filter((movie) =>
     movie.genres.includes(searchedGenre)
   );

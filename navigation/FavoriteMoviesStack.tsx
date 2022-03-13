@@ -5,7 +5,7 @@ import {
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 import { DrawerActions } from "@react-navigation/native";
-import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 // Redux
 import { checkIfMovieIsAddedToFavorites } from "../store/favorite-movies-list-actions";
@@ -14,7 +14,6 @@ import { checkIfMovieIsAddedToFavorites } from "../store/favorite-movies-list-ac
 import {
   addMovieToFavorites,
   removeMovieFromFavorites,
-  signOutUser,
 } from "../firebase/firebase-methods";
 
 // Screens

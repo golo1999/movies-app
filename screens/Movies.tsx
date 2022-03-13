@@ -1,6 +1,8 @@
 // Standard packages
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import React, { useCallback, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 
 // Redux
 import { fetchMoviesList } from "../store/movies-list-actions";
@@ -17,39 +19,34 @@ const Movies = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(moviesListActions.clearMoviesList());
-    dispatch(fetchMoviesList());
-  }, [dispatch]);
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(moviesListActions.clearMoviesList());
+      dispatch(fetchMoviesList());
+    }, [])
+  );
 
-  useEffect(() => {
-    const abortController = new AbortController();
+  useFocusEffect(
+    useCallback(() => {
+      const cancelTokenSource = axios.CancelToken.source();
 
-    fetch(`https://yts.mx/api/v2/list_movies.json`, {
-      signal: abortController.signal,
-    })
-      .then((result) => {
-        if (!result.ok) {
-          throw Error(`Couldn't fetch movies list length...`);
-        }
+      axios
+        .get("https://yts.mx/api/v2/list_movies.json", {
+          cancelToken: cancelTokenSource.token,
+        })
+        .then((response) =>
+          response.data
+            ? (Object.values(response.data.data.movies) as Movie[]).length
+            : 0
+        )
+        .then((moviesListLength) => {
+          setNumberOfMovies(moviesListLength);
+        });
 
-        return result.json();
-      })
-      .then((data) => {
-        const moviesData = data.data;
-
-        const moviesList: Movie[] = Object.values(moviesData.movies);
-
-        setNumberOfMovies(moviesList.length);
-      })
-      .catch((error) => {
-        if (error.name === `AbortError`) {
-          console.log(`fetch aborted`);
-        }
-      });
-
-    return () => abortController?.abort();
-  }, []);
+      return () =>
+        cancelTokenSource.cancel("Cancelled fetching number of movies");
+    }, [])
+  );
 
   const moviesList: Movie[] = useSelector(
     (state: RootStateOrAny) => state.moviesList.moviesList
@@ -59,6 +56,7 @@ const Movies = () => {
     <MoviesList
       loadingMessage="Fetching data..."
       moviesList={moviesList}
+      noDataMessage="No data found..."
       numberOfMovies={numberOfMovies}
     />
   );

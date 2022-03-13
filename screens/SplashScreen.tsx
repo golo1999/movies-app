@@ -1,5 +1,5 @@
 // Standard packages
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { useNavigation } from "@react-navigation/native";
@@ -17,8 +17,6 @@ type MoviesListScreenProp = NativeStackNavigationProp<
 >;
 
 const SplashScreen = () => {
-  const [userIsAuthenticated, setUserIsAuthenticated] = useState(false);
-
   const navigation = useNavigation<MoviesListScreenProp>();
 
   useEffect(() => {

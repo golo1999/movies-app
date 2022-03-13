@@ -6,9 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
 
-// Redux
-import { authActions } from "../../store/auth-slice";
-
 // Navigation
 import { MoviesStackParamsList } from "../../navigation/MoviesStack";
 
@@ -19,9 +16,6 @@ import { authenticateUser } from "../../firebase/firebase-methods";
 import CustomButton from "../UI/Button";
 import CustomInput from "../UI/Input";
 import { CustomText } from "../UI/Text";
-
-// Models
-import { User } from "../../models/User";
 
 // Validation
 import { loginSchema } from "../../validation/login-validation";
