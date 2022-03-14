@@ -1,9 +1,9 @@
 // Standard packages
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
 import { Text, View } from "react-native";
 import { Icon } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 // Navigation
 import { AppStackParamsList } from "../../navigation/AppStack";

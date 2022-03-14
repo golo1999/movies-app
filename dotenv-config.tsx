@@ -1,3 +1,4 @@
+// Environment variables
 import {
   API_KEY,
   AUTH_DOMAIN,

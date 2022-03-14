@@ -1,8 +1,8 @@
-type FirebaseErrorType = {
+interface FirebaseErrorType {
   errorCode?: string;
   userMessage: string;
   userMessageTitle: string;
-};
+}
 
 export const COULD_NOT_SIGN_OUT: FirebaseErrorType = {
   userMessage: "Couldn't sign out! Please try again",

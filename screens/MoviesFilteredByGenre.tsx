@@ -1,6 +1,6 @@
 // Standard packages
-import React from "react";
 import { RouteProp, useRoute } from "@react-navigation/native";
+import React from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 // Components

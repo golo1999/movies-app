@@ -42,7 +42,7 @@ const CustomInput = ({
       placeholder={placeholder}
       placeholderTextColor={placeholderTextColor}
       ref={reference}
-      secureTextEntry={type === `password`}
+      secureTextEntry={type === "password"}
       selectionColor={cursorColor}
       style={[style, inputStyles.input]}
       value={value}

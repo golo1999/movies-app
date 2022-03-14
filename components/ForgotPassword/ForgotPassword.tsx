@@ -3,6 +3,9 @@ import { Formik } from "formik";
 import React from "react";
 import { GestureResponderEvent, Text, View } from "react-native";
 
+// Firebase
+import { resetPassword } from "../../firebase/firebase-methods";
+
 // Components
 import CustomButton from "../Button/Button";
 import CustomInput from "../Input/Input";
@@ -32,17 +35,14 @@ type Props = {
 type FormValues = { email: string };
 
 const ForgotPassword = ({ redirectToLoginHandler }: Props) => {
-  const initialValues: FormValues = { email: `` };
-
-  const resetPasswordHandler = (values: FormValues) => {
-    console.log(values);
-    redirectToLoginHandler();
-  };
+  const initialValues: FormValues = { email: "" };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={(values) => resetPasswordHandler(values)}
+      onSubmit={(values) =>
+        resetPassword({ email: values.email, redirectToLoginHandler })
+      }
       validationSchema={forgotPasswordSchema}
     >
       {(formikProps) => (
@@ -56,7 +56,7 @@ const ForgotPassword = ({ redirectToLoginHandler }: Props) => {
           )}
           <CustomInput
             cursorColor="white"
-            onChangeText={formikProps.handleChange(`email`)}
+            onChangeText={formikProps.handleChange("email")}
             placeholder="Email"
             placeholderTextColor="white"
             style={[

@@ -5,16 +5,14 @@ import { StyleSheet } from "react-native";
 import { COLORS } from "../../themes/variables";
 
 export const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    backgroundColor: COLORS.PRIMARY,
-    flex: 1,
-    justifyContent: "center",
+  container: { backgroundColor: COLORS.PRIMARY, flex: 1, paddingVertical: 5 },
+  list: {
+    alignItems: "flex-start",
+    display: "flex",
   },
-  logo: {
-    color: COLORS.SECONDARY,
-    fontSize: 50,
-    fontWeight: "bold",
-    marginBottom: 8,
+  listItem: {
+    alignItems: "center",
+    padding: 20,
+    justifyContent: "center",
   },
 });

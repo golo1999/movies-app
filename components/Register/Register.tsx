@@ -59,8 +59,8 @@ const Register = ({ redirectToLoginHandler }: Props) => {
           )}
           <CustomInput
             cursorColor="white"
-            onChangeText={formikProps.handleChange(`email`)}
-            onBlur={formikProps.handleBlur(`email`)}
+            onChangeText={formikProps.handleChange("email")}
+            onBlur={formikProps.handleBlur("email")}
             placeholder="Email"
             placeholderTextColor="white"
             style={[
@@ -77,8 +77,8 @@ const Register = ({ redirectToLoginHandler }: Props) => {
           )}
           <CustomInput
             cursorColor="white"
-            onChangeText={formikProps.handleChange(`name`)}
-            onBlur={formikProps.handleBlur(`name`)}
+            onChangeText={formikProps.handleChange("name")}
+            onBlur={formikProps.handleBlur("name")}
             placeholder="Full name"
             placeholderTextColor="white"
             style={[
@@ -95,8 +95,8 @@ const Register = ({ redirectToLoginHandler }: Props) => {
           )}
           <CustomInput
             cursorColor="white"
-            onChangeText={formikProps.handleChange(`password`)}
-            onBlur={formikProps.handleBlur(`password`)}
+            onChangeText={formikProps.handleChange("password")}
+            onBlur={formikProps.handleBlur("password")}
             placeholder="Password"
             placeholderTextColor="white"
             style={[

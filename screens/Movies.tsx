@@ -13,6 +13,9 @@ import MoviesList from "../components/MoviesList/MoviesList";
 // Models
 import { Movie } from "../models/Movie";
 
+// Variables
+import { MOVIES_LIST_URL as moviesListURL } from "../themes/variables";
+
 const Movies = () => {
   const [numberOfMovies, setNumberOfMovies] = useState(-1);
 
@@ -21,13 +24,13 @@ const Movies = () => {
   useEffect(() => {
     dispatch(moviesListActions.clearMoviesList());
     dispatch(fetchMoviesList());
-  }, [dispatch]);
+  }, [dispatch, fetchMoviesList]);
 
   useEffect(() => {
     const cancelTokenSource = axios.CancelToken.source();
 
     axios
-      .get("https://yts.mx/api/v2/list_movies.json", {
+      .get(moviesListURL, {
         cancelToken: cancelTokenSource.token,
       })
       .then((response) =>

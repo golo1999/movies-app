@@ -1,24 +1,24 @@
 // Standard packages
-import React from "react";
-import { FlatList, StyleSheet, View } from "react-native";
-import { RootStateOrAny, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React from "react";
+import { FlatList, View } from "react-native";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 // Navigation
-import { MovieCategoriesStackParamsList } from "../navigation/MovieCategoriesStack";
+import { MovieCategoriesStackParamsList } from "../../navigation/MovieCategoriesStack";
 
 // Components
-import MovieGenresListItem from "../components/MovieGenresListItem/MovieGenresListItem";
+import MovieGenresListItem from "../../components/MovieGenresListItem/MovieGenresListItem";
 
 // Models
-import { Movie } from "../models/Movie";
+import { Movie } from "../../models/Movie";
 
 // Methods
-import { getMovieGenresList } from "../themes/methods";
+import { getMovieGenresList } from "../../themes/methods";
 
-// Variables
-import { COLORS } from "../themes/variables";
+// Stylings
+import { styles } from "./MovieGenres.styles";
 
 type MovieDetailsScreenProp = NativeStackNavigationProp<
   MovieCategoriesStackParamsList,
@@ -60,16 +60,3 @@ const MovieGenres = () => {
 };
 
 export default MovieGenres;
-
-const styles = StyleSheet.create({
-  container: { backgroundColor: COLORS.PRIMARY, flex: 1, paddingVertical: 5 },
-  list: {
-    alignItems: `flex-start`,
-    display: `flex`,
-  },
-  listItem: {
-    alignItems: `center`,
-    padding: 20,
-    justifyContent: `center`,
-  },
-});

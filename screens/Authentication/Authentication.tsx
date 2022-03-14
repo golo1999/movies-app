@@ -29,12 +29,12 @@ const Authentication = () => {
   };
 
   const selectedAuthenticationType =
-    authenticationType === `LOGIN` ? (
+    authenticationType === "LOGIN" ? (
       <Login
         redirectToForgotPasswordHandler={redirectToForgotPasswordHandler}
         redirectToRegisterHandler={redirectToRegisterHandler}
       />
-    ) : authenticationType === `REGISTER` ? (
+    ) : authenticationType === "REGISTER" ? (
       <Register redirectToLoginHandler={redirectToLoginHandler} />
     ) : (
       <ForgotPassword redirectToLoginHandler={redirectToLoginHandler} />

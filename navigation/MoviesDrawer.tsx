@@ -1,12 +1,12 @@
 // Standard packages
-import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import React from "react";
 import { useDispatch, useSelector, RootStateOrAny } from "react-redux";
 
 // Navigation
-import { FavoriteMoviesStack } from "./FavoriteMoviesStack";
+import FavoriteMoviesStack from "./FavoriteMoviesStack";
 import MovieCategoriesStack from "./MovieCategoriesStack";
 import MoviesStack from "./MoviesStack";
 import ProfileStack from "./ProfileStack";
@@ -14,11 +14,11 @@ import ProfileStack from "./ProfileStack";
 // Firebase
 import { signOutUser } from "../firebase/firebase-methods";
 
-// Screens
-import FavoriteMovies from "../screens/FavoriteMovies";
-
 // Components
 import CustomDrawer from "../components/CustomDrawer/CustomDrawer";
+
+// Variables
+import { COLORS } from "../themes/variables";
 
 // Models
 import { User } from "../models/User";
@@ -70,18 +70,33 @@ const MoviesDrawer = () => {
       <Drawer.Screen
         name="MoviesStack"
         component={MoviesStack}
-        options={{ title: "Movies" }}
+        options={{
+          drawerActiveBackgroundColor: COLORS.TERTIARY,
+          drawerActiveTintColor: "white",
+          drawerInactiveTintColor: "white",
+          title: "Movies",
+        }}
       />
       <Drawer.Screen
         name="MovieCategoriesStack"
         component={MovieCategoriesStack}
-        options={{ title: "Categories" }}
+        options={{
+          drawerActiveBackgroundColor: COLORS.TERTIARY,
+          drawerActiveTintColor: "white",
+          drawerInactiveTintColor: "white",
+          title: "Categories",
+        }}
       />
       {userIsAuthenticated && (
         <Drawer.Screen
           name="FavoriteMoviesStack"
           component={FavoriteMoviesStack}
-          options={{ title: "Favorites" }}
+          options={{
+            drawerActiveBackgroundColor: COLORS.TERTIARY,
+            drawerActiveTintColor: "white",
+            drawerInactiveTintColor: "white",
+            title: "Favorites",
+          }}
         />
       )}
       {userIsAuthenticated && (
@@ -89,6 +104,9 @@ const MoviesDrawer = () => {
           name="ProfileStack"
           component={ProfileStack}
           options={{
+            drawerActiveBackgroundColor: COLORS.TERTIARY,
+            drawerActiveTintColor: "white",
+            drawerInactiveTintColor: "white",
             title: "Profile",
           }}
         />

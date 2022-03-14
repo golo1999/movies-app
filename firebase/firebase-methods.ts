@@ -1,24 +1,25 @@
 // Standard packages
+import { Dispatch } from "@reduxjs/toolkit";
 import {
   browserLocalPersistence,
   browserSessionPersistence,
   createUserWithEmailAndPassword,
   Persistence,
   sendEmailVerification,
+  sendPasswordResetEmail,
   setPersistence,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { onValue, ref, remove, set } from "firebase/database";
-import { Alert } from "react-native";
-import { Dispatch } from "@reduxjs/toolkit";
+import { Alert, GestureResponderEvent } from "react-native";
 
 // Redux
+import { authActions } from "../store/auth-slice";
 import {
   checkIfMovieIsAddedToFavorites,
   getFavoriteMovieKey,
 } from "../store/favorite-movies-list-actions";
-import { authActions } from "../store/auth-slice";
 
 // Firebase
 import { auth, db } from "./firebase";
@@ -70,6 +71,11 @@ interface RemoveMovieFromFavoritesProps {
   movieId: number;
   onSuccess: () => void;
   userId: string;
+}
+
+interface ResetPasswordProps {
+  email: string;
+  redirectToLoginHandler: () => void;
 }
 
 interface SignOutUserProps {
@@ -130,9 +136,9 @@ export const authenticateUser = ({
   //           }
   //         );
   //       })
-  //       .catch();
+  //       .catch((error) => console.log(error));
   //   })
-  //   .catch();
+  //   .catch((error) => console.log(error));
 
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -166,6 +172,10 @@ export const authenticateUser = ({
           errorMessage = EMAIL_NOT_VERIFIED.userMessage;
           errorMessageTitle = EMAIL_NOT_VERIFIED.userMessageTitle;
           break;
+        case TOO_MANY_REQUESTS.errorCode:
+          errorMessage = TOO_MANY_REQUESTS.userMessage;
+          errorMessageTitle = TOO_MANY_REQUESTS.userMessageTitle;
+          break;
         case USER_NOT_FOUND.errorCode:
           errorMessage = USER_NOT_FOUND.userMessage;
           errorMessageTitle = USER_NOT_FOUND.userMessageTitle;
@@ -174,10 +184,6 @@ export const authenticateUser = ({
           errorMessage = WRONG_PASSWORD.userMessage;
           errorMessageTitle = WRONG_PASSWORD.userMessageTitle;
           break;
-        case TOO_MANY_REQUESTS.errorCode:
-          errorMessage = TOO_MANY_REQUESTS.userMessage;
-          errorMessageTitle = TOO_MANY_REQUESTS.userMessageTitle;
-          break;
         default:
           errorMessage = PLEASE_TRY_AGAIN.userMessage;
           errorMessageTitle = PLEASE_TRY_AGAIN.userMessageTitle;
@@ -185,8 +191,6 @@ export const authenticateUser = ({
       }
 
       Alert.alert(errorMessageTitle, errorMessage);
-
-      console.log(error.code);
     });
 };
 
@@ -249,6 +253,39 @@ export const removeMovieFromFavorites = ({
       );
     }
   );
+};
+
+export const resetPassword = ({
+  email,
+  redirectToLoginHandler,
+}: ResetPasswordProps) => {
+  sendPasswordResetEmail(auth, email)
+    .then(() => redirectToLoginHandler())
+    .catch((error) => {
+      let errorMessage;
+      let errorMessageTitle;
+
+      switch (error.code) {
+        case EMAIL_NOT_VERIFIED.errorCode:
+          errorMessage = EMAIL_NOT_VERIFIED.userMessage;
+          errorMessageTitle = EMAIL_NOT_VERIFIED.userMessageTitle;
+          break;
+        case TOO_MANY_REQUESTS.errorCode:
+          errorMessage = TOO_MANY_REQUESTS.userMessage;
+          errorMessageTitle = TOO_MANY_REQUESTS.userMessageTitle;
+          break;
+        case USER_NOT_FOUND.errorCode:
+          errorMessage = USER_NOT_FOUND.userMessage;
+          errorMessageTitle = USER_NOT_FOUND.userMessageTitle;
+          break;
+        default:
+          errorMessage = PLEASE_TRY_AGAIN.userMessage;
+          errorMessageTitle = PLEASE_TRY_AGAIN.userMessageTitle;
+          break;
+      }
+
+      Alert.alert(errorMessageTitle, errorMessage);
+    });
 };
 
 export const signOutUser = ({ dispatch }: SignOutUserProps) => {

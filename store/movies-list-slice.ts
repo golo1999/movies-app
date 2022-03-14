@@ -7,7 +7,7 @@ import { Movie } from "../models/Movie";
 const initialState = { moviesList: [] as Movie[] };
 
 const moviesListSlice = createSlice({
-  name: `moviesList`,
+  name: "moviesList",
   initialState,
   reducers: {
     addMovie: (state, action) => {

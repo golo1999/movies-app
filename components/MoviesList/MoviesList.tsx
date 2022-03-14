@@ -1,10 +1,9 @@
 // Standard packages
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useCallback, useState } from "react";
 import { FlatList, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
-import { useFocusEffect } from "@react-navigation/native";
 
 // Redux
 import { selectedMovieActions } from "../../store/selected-movie-slice";

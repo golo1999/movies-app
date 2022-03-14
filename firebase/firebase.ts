@@ -1,7 +1,9 @@
+// Standard packages
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth, EmailAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
+// Environment variables
 import {
   API_KEY as apiKey,
   AUTH_DOMAIN as authDomain,

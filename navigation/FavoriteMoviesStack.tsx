@@ -1,10 +1,10 @@
 // Standard packages
-import React, { useState } from "react";
+import { DrawerActions } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { DrawerActions } from "@react-navigation/native";
+import React, { useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 // Redux
@@ -18,7 +18,7 @@ import {
 
 // Screens
 import FavoriteMovies from "../screens/FavoriteMovies";
-import MovieDetails from "../screens/MovieDetails";
+import MovieDetails from "../screens/MovieDetails/MovieDetails";
 
 // Components
 import CustomHeader from "../components/CustomHeader/CustomHeader";
@@ -42,7 +42,7 @@ type FavoriteMoviesStackScreenProp = NativeStackNavigationProp<
 
 const Stack = createNativeStackNavigator<FavoriteMoviesStackParamsList>();
 
-export const FavoriteMoviesStack = () => {
+const FavoriteMoviesStack = () => {
   const [movieIsAddedToFavorites, setMovieIsAddedToFavorites] =
     useState<boolean>(true);
 
@@ -132,3 +132,5 @@ export const FavoriteMoviesStack = () => {
     </Stack.Navigator>
   );
 };
+
+export default FavoriteMoviesStack;

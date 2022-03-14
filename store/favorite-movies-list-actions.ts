@@ -8,6 +8,9 @@ import { favoriteMoviesListActions } from "./favorite-movies-list-slice";
 // Models
 import { Movie } from "../models/Movie";
 
+// Variables
+import { MOVIE_DETAILS_URL as movieDetailsURL } from "../themes/variables";
+
 export const checkIfMovieIsAddedToFavorites = async (
   databaseURL: string,
   userId: string,
@@ -45,7 +48,7 @@ export const fetchFavoriteMoviesList = (
 
     const fetchFavoriteMovieDetails = async (favoriteMovieId: number) => {
       const response = await axios.get(
-        `https://yts.mx/api/v2/movie_details.json?movie_id=${favoriteMovieId}`
+        `${movieDetailsURL}?movie_id=${favoriteMovieId}`
       );
 
       const data = await response.data;

@@ -1,11 +1,12 @@
+// Standard packages
 import { Dimensions, StyleProp, TextStyle, ViewStyle } from "react-native";
 
-export const APP_NAME: string = `MoviesApp`;
+export const APP_NAME: string = "MoviesApp";
 
 export const COLORS = {
-  PRIMARY: `#003f5c`,
-  SECONDARY: `#fb5b5a`,
-  TERTIARY: `#465881`,
+  PRIMARY: "#003f5c",
+  SECONDARY: "#fb5b5a",
+  TERTIARY: "#465881",
 };
 
 export const authenticationButtonStyle: StyleProp<ViewStyle> = {
@@ -17,7 +18,7 @@ export const authenticationButtonStyle: StyleProp<ViewStyle> = {
 };
 
 export const authenticationButtonTextStyle: StyleProp<TextStyle> = {
-  color: `white`,
+  color: "white",
 };
 
 export const authenticationInputStyle: StyleProp<ViewStyle> = {
@@ -29,11 +30,16 @@ export const authenticationInputStyle: StyleProp<ViewStyle> = {
 };
 
 export const authenticationInputTextStyle: StyleProp<TextStyle> = {
-  color: `white`,
+  color: "white",
 };
 
 export const authenticationRedirectTextStyle: StyleProp<TextStyle> = {
-  color: `white`,
+  color: "white",
   fontSize: 16,
-  textAlign: `center`,
+  textAlign: "center",
 };
+
+export const MOVIE_DETAILS_URL: string =
+  "https://yts.mx/api/v2/movie_details.json";
+
+export const MOVIES_LIST_URL: string = "https://yts.mx/api/v2/list_movies.json";

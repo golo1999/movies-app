@@ -1,10 +1,10 @@
 // Standard packages
+import { DrawerActions } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { DrawerActions } from "@react-navigation/native";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
 // Redux
@@ -15,7 +15,7 @@ import {
 
 // Screens
 import Authentication from "../screens/Authentication/Authentication";
-import MovieGenres from "../screens/MovieGenres";
+import MovieGenres from "../screens/MovieGenres/MovieGenres";
 import MoviesFilteredByGenre from "../screens/MoviesFilteredByGenre";
 
 // Firebase
@@ -27,7 +27,7 @@ import {
 
 // Components
 import CustomHeader from "../components/CustomHeader/CustomHeader";
-import MovieDetails from "../screens/MovieDetails";
+import MovieDetails from "../screens/MovieDetails/MovieDetails";
 
 // Models
 import { Movie } from "../models/Movie";

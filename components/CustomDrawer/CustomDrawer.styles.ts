@@ -4,6 +4,11 @@ import { StyleSheet } from "react-native";
 // Variables
 import { COLORS } from "../../themes/variables";
 
+export const profileLogoStyles = StyleSheet.create({
+  container: { backgroundColor: COLORS.PRIMARY },
+  text: { color: "white" },
+});
+
 export const styles = StyleSheet.create({
   authenticationButton: { marginVertical: 8 },
   authenticationButtonText: { color: "white" },

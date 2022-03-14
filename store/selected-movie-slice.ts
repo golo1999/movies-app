@@ -9,7 +9,7 @@ type SelectedMovieState = { selectedMovie: Movie };
 const initialState = { selectedMovie: {} as SelectedMovieState };
 
 const selectedMovieSlice = createSlice({
-  name: `selectedMovie`,
+  name: "selectedMovie",
   initialState,
   reducers: {
     clearSelectedMovie: (state) => {

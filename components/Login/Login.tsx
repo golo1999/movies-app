@@ -1,9 +1,9 @@
 // Standard packages
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Formik } from "formik";
 import React from "react";
 import { Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useDispatch } from "react-redux";
 
 // Navigation
@@ -65,21 +65,6 @@ const Login = ({
     rememberMe: false,
   };
 
-  const authenticateUserHandler = ({
-    email,
-    goBackHandler,
-    password,
-    rememberMe,
-  }: FormValues) => {
-    authenticateUser({
-      dispatch,
-      email,
-      goBackHandler: () => goBackHandler,
-      password,
-      rememberMe,
-    });
-  };
-
   return (
     <Formik
       initialValues={initialValues}
@@ -103,8 +88,8 @@ const Login = ({
           </Text>
           <CustomInput
             cursorColor="white"
-            onChangeText={formikProps.handleChange(`email`)}
-            onBlur={formikProps.handleBlur(`email`)}
+            onChangeText={formikProps.handleChange("email")}
+            onBlur={formikProps.handleBlur("email")}
             placeholder="Email"
             placeholderTextColor="white"
             style={[
@@ -121,8 +106,8 @@ const Login = ({
           </Text>
           <CustomInput
             cursorColor="white"
-            onChangeText={formikProps.handleChange(`password`)}
-            onBlur={formikProps.handleBlur(`password`)}
+            onChangeText={formikProps.handleChange("password")}
+            onBlur={formikProps.handleBlur("password")}
             placeholder="Password"
             placeholderTextColor="white"
             style={[

@@ -4,20 +4,16 @@ import { StyleSheet } from "react-native";
 // Variables
 import { COLORS } from "../../themes/variables";
 
+export const profileLogoStyles = StyleSheet.create({
+  container: { backgroundColor: "white" },
+  text: { color: COLORS.PRIMARY },
+});
+
 export const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: COLORS.SECONDARY,
-    borderColor: COLORS.PRIMARY,
-    borderWidth: 5,
-    display: "flex",
-    flexBasis: "50%",
+    backgroundColor: COLORS.PRIMARY,
     flexDirection: "column",
-  },
-  genre: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
+    flexGrow: 1,
   },
 });

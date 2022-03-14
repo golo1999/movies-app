@@ -1,10 +1,10 @@
 // Standard packages
-import React, { useState } from "react";
+import { DrawerActions } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
-import { DrawerActions } from "@react-navigation/native";
+import React, { useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
 // Redux
@@ -20,7 +20,7 @@ import {
 // Screens
 import Authentication from "../screens/Authentication/Authentication";
 import Movies from "../screens/Movies";
-import MovieDetails from "../screens/MovieDetails";
+import MovieDetails from "../screens/MovieDetails/MovieDetails";
 
 // Components
 import CustomHeader from "../components/CustomHeader/CustomHeader";

@@ -1,6 +1,6 @@
 // Standard packages
-import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 // Redux

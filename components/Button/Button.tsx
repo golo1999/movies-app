@@ -3,7 +3,6 @@ import React from "react";
 import {
   GestureResponderEvent,
   StyleProp,
-  StyleSheet,
   Text,
   TextStyle,
   TouchableHighlight,

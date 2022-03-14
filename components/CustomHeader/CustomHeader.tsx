@@ -1,8 +1,8 @@
 // Standard packages
 import { MaterialIcons } from "@expo/vector-icons";
+import { useHeaderHeight } from "@react-navigation/elements";
 import React from "react";
 import { GestureResponderEvent, Text, View } from "react-native";
-import { useHeaderHeight } from "@react-navigation/elements";
 
 // Stylings
 import { styles } from "./CustomHeader.styles";

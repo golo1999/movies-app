@@ -8,12 +8,13 @@ import { moviesListActions } from "./movies-list-slice";
 // Models
 import { Movie } from "../models/Movie";
 
+// Variables
+import { MOVIES_LIST_URL as moviesListURL } from "../themes/variables";
+
 export const fetchMoviesList = () => {
   return async (dispatch: Dispatch<any>) => {
     const fetchData = async () => {
-      const response = await axios.get(
-        `https://yts.mx/api/v2/list_movies.json`
-      );
+      const response = await axios.get(moviesListURL);
 
       const data = await response.data;
 
@@ -35,7 +36,7 @@ export const fetchMoviesList = () => {
 };
 
 export const getTotalNumberOfMovies = async () => {
-  const response = await fetch(`https://yts.mx/api/v2/list_movies.json`);
+  const response = await fetch(moviesListURL);
 
   if (!response.ok) {
     console.log("Error fetching number of movies");

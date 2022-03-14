@@ -1,15 +1,16 @@
 // Standard packages
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItemList,
 } from "@react-navigation/drawer";
+import React from "react";
+import { Text, View } from "react-native";
 import { RootStateOrAny, useSelector } from "react-redux";
 
 // Components
 import { CustomNoUnderlayButton } from "../Button/Button";
+import ProfileLogo from "../ProfileLogo/ProfileLogo";
 
 // Models
 import { User } from "../../models/User";
@@ -18,7 +19,7 @@ import { User } from "../../models/User";
 import { COLORS } from "../../themes/variables";
 
 // Stylings
-import { styles } from "./CustomDrawer.styles";
+import { profileLogoStyles, styles } from "./CustomDrawer.styles";
 
 type Props = {
   logInHandler: () => void;
@@ -31,6 +32,10 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
     (state: RootStateOrAny) => state.auth.authenticatedUser
   );
 
+  const notAuthenticatedUser: User = useSelector(
+    (state: RootStateOrAny) => state.auth.notAuthenticatedUser
+  );
+
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
   return (
@@ -41,11 +46,11 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
       >
         {userIsAuthenticated ? (
           <View style={[styles.header]}>
-            <View style={[styles.headerIconContainer]}>
-              <Text style={[styles.headerIcon]}>
-                {authenticatedUser.name.charAt(0).toUpperCase()}
-              </Text>
-            </View>
+            <ProfileLogo
+              authenticatedUserName={authenticatedUser.name}
+              containerStyles={profileLogoStyles.container}
+              textStyles={profileLogoStyles.text}
+            />
             <Text
               style={[
                 styles.headerText,
@@ -62,16 +67,18 @@ const CustomDrawer = ({ logInHandler, logOutHandler, props }: Props) => {
           </View>
         ) : (
           <View style={[styles.header]}>
-            <View style={[styles.headerIconContainer]}>
-              <Text style={[styles.headerIcon]}>?</Text>
-            </View>
+            <ProfileLogo
+              authenticatedUserName={null}
+              containerStyles={profileLogoStyles.container}
+              textStyles={profileLogoStyles.text}
+            />
             <Text
               style={[
                 styles.headerText,
                 { fontStyle: "italic", fontWeight: "bold", marginTop: 8 },
               ]}
             >
-              John Doe
+              {notAuthenticatedUser.name}
             </Text>
           </View>
         )}

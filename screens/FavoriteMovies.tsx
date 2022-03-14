@@ -1,8 +1,8 @@
 // Standard packages
+import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
 import React, { useCallback, useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
-import { useFocusEffect } from "@react-navigation/native";
 
 // Redux
 import { fetchFavoriteMoviesList } from "../store/favorite-movies-list-actions";

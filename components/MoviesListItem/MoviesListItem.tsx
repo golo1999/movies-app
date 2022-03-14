@@ -36,16 +36,16 @@ const MoviesListItem = ({ movie, onPress, style }: Props) => {
         <Image
           resizeMode="stretch"
           source={{ uri: movie.large_cover_image }}
-          style={[{ aspectRatio: 1, height: undefined, width: `100%` }]}
+          style={[{ aspectRatio: 1, height: undefined, width: "100%" }]}
         />
         <Text
           numberOfLines={1}
           style={[
             moviesListItemStyles.title,
             {
-              color: `white`,
+              color: "white",
               fontSize: 16,
-              fontWeight: `bold`,
+              fontWeight: "bold",
               marginVertical: 4,
             },
           ]}

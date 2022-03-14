@@ -4,12 +4,21 @@ import { createSlice } from "@reduxjs/toolkit";
 // Models
 import { User } from "../models/User";
 
-type AuthenticatedUserState = { authenticatedUser: User };
+type AuthenticatedUserState = {
+  authenticatedUser: User;
+};
 
-const initialState = { authenticatedUser: {} as AuthenticatedUserState };
+const initialState = {
+  authenticatedUser: {} as AuthenticatedUserState,
+  notAuthenticatedUser: new User({
+    email: "visitor@mail.com",
+    id: "0",
+    name: "Visitor",
+  }),
+};
 
 const authSlice = createSlice({
-  name: `auth`,
+  name: "auth",
   initialState,
   reducers: {
     clearAuthenticatedUser: (state) => {
