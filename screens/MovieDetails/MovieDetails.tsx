@@ -8,7 +8,7 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import { Movie } from "../../models/Movie";
 
 // Methods
-import { getFormattedMovieGenresList } from "../../themes/methods";
+import { getFormattedMovieGenresList } from "../../environment/theme/Methods";
 
 // Stylings
 import { styles } from "./MovieDetails.styles";

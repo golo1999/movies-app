@@ -32,10 +32,6 @@ export const ProfileStack = () => {
     (state: RootStateOrAny) => state.auth.authenticatedUser
   );
 
-  const openDrawerHandler = (navigation: ProfileStackScreenProp) => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
-
   return (
     <Stack.Navigator initialRouteName="Profile">
       <Stack.Screen
@@ -45,7 +41,7 @@ export const ProfileStack = () => {
             <CustomHeader
               headerLeft={{
                 iconName: "menu",
-                onPress: () => openDrawerHandler(navigation),
+                onPress: () => navigation.dispatch(DrawerActions.openDrawer()),
               }}
               title="Profile"
             />

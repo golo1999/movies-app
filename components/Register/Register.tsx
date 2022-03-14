@@ -11,6 +11,9 @@ import { CustomText } from "../Text/Text";
 // Validation
 import { registerSchema } from "../../validation/register-validation";
 
+// Colors
+import COLORS from "../../environment/theme/Colors";
+
 // Variables
 import {
   authenticationButtonStyle,
@@ -18,11 +21,10 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
-  COLORS,
-} from "../../themes/variables";
+} from "../../environment/theme/Variables";
 
 // Methods
-import { registerUser } from "../../firebase/firebase-methods";
+import { registerUser } from "../../environment/firebase/firebase-methods";
 
 // Stylings
 import globalStyles from "../../styles/global-styles";

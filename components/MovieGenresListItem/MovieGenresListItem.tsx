@@ -9,8 +9,8 @@ import {
   ViewStyle,
 } from "react-native";
 
-// Variables
-import { COLORS } from "../../themes/variables";
+// Colors
+import COLORS from "../../environment/theme/Colors";
 
 // Stylings
 import { styles } from "./MovieGenresListItem.styles";

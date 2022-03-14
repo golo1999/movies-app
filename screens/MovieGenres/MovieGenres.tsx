@@ -15,7 +15,7 @@ import MovieGenresListItem from "../../components/MovieGenresListItem/MovieGenre
 import { Movie } from "../../models/Movie";
 
 // Methods
-import { getMovieGenresList } from "../../themes/methods";
+import { getMovieGenresList } from "../../environment/theme/Methods";
 
 // Stylings
 import { styles } from "./MovieGenres.styles";

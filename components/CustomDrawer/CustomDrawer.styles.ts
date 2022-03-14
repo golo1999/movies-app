@@ -1,8 +1,8 @@
 // Standard packages
 import { StyleSheet } from "react-native";
 
-// Variables
-import { COLORS } from "../../themes/variables";
+// Colors
+import COLORS from "../../environment/theme/Colors";
 
 export const profileLogoStyles = StyleSheet.create({
   container: { backgroundColor: COLORS.PRIMARY },

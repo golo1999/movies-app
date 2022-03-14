@@ -15,11 +15,11 @@ import { onValue, ref, remove, set } from "firebase/database";
 import { Alert, GestureResponderEvent } from "react-native";
 
 // Redux
-import { authActions } from "../store/auth-slice";
+import { authActions } from "../../store/auth-slice";
 import {
   checkIfMovieIsAddedToFavorites,
   getFavoriteMovieKey,
-} from "../store/favorite-movies-list-actions";
+} from "../../store/favorite-movies-list-actions";
 
 // Firebase
 import { auth, db } from "./firebase";
@@ -38,10 +38,10 @@ import {
 import {
   createPersonalInformationPath,
   generateRandomUUID,
-} from "../themes/methods";
+} from "../theme/Methods";
 
 // Models
-import { User } from "../models/User";
+import { User } from "../../models/User";
 
 // Environment variables
 import { DATABASE_URL as databaseURL } from "@env";

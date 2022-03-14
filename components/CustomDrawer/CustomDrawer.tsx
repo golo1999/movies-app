@@ -16,7 +16,7 @@ import ProfileLogo from "../ProfileLogo/ProfileLogo";
 import { User } from "../../models/User";
 
 // Variables
-import { COLORS } from "../../themes/variables";
+import COLORS from "../../environment/theme/Colors";
 
 // Stylings
 import { profileLogoStyles, styles } from "./CustomDrawer.styles";

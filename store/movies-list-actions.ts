@@ -9,7 +9,7 @@ import { moviesListActions } from "./movies-list-slice";
 import { Movie } from "../models/Movie";
 
 // Variables
-import { MOVIES_LIST_URL as moviesListURL } from "../themes/variables";
+import { MOVIES_LIST_URL as moviesListURL } from "../environment/theme/Variables";
 
 export const fetchMoviesList = () => {
   return async (dispatch: Dispatch<any>) => {
@@ -28,10 +28,14 @@ export const fetchMoviesList = () => {
 
       const moviesList: Movie[] = Object.values(moviesData.movies);
 
-      moviesList.forEach((movie) => {
-        dispatch(moviesListActions.addMovie({ movie }));
-      });
-    } catch (error: any) {}
+      moviesList
+        .filter((movie) => movie.title)
+        .forEach((movie) => {
+          dispatch(moviesListActions.addMovie({ movie }));
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 };
 

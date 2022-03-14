@@ -2,7 +2,7 @@
 import { StyleSheet } from "react-native";
 
 // Variables
-import { COLORS } from "../../themes/variables";
+import COLORS from "../../environment/theme/Colors";
 
 export const styles = (headerHeight: number) =>
   StyleSheet.create({

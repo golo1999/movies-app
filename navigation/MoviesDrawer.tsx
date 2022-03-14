@@ -12,13 +12,13 @@ import MoviesStack from "./MoviesStack";
 import ProfileStack from "./ProfileStack";
 
 // Firebase
-import { signOutUser } from "../firebase/firebase-methods";
+import { signOutUser } from "../environment/firebase/firebase-methods";
 
 // Components
 import CustomDrawer from "../components/CustomDrawer/CustomDrawer";
 
-// Variables
-import { COLORS } from "../themes/variables";
+// Colors
+import COLORS from "../environment/theme/Colors";
 
 // Models
 import { User } from "../models/User";
@@ -49,15 +49,11 @@ const MoviesDrawer = () => {
 
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
-  const loginRedirectHandler = (navigation: MoviesDrawerProp) => {
-    navigation.navigate("Authentication");
-  };
-
   return (
     <Drawer.Navigator
       drawerContent={(props) => (
         <CustomDrawer
-          logInHandler={() => loginRedirectHandler(navigation)}
+          logInHandler={() => navigation.navigate("Authentication")}
           logOutHandler={() => signOutUser({ dispatch })}
           props={{ ...props }}
         />

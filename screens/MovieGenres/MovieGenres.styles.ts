@@ -1,8 +1,8 @@
 // Standard packages
 import { StyleSheet } from "react-native";
 
-// Variables
-import { COLORS } from "../../themes/variables";
+// Colors
+import COLORS from "../../environment/theme/Colors";
 
 export const styles = StyleSheet.create({
   container: { backgroundColor: COLORS.PRIMARY, flex: 1, paddingVertical: 5 },

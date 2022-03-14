@@ -6,13 +6,13 @@ import "react-native-gesture-handler";
 import { Provider } from "react-redux";
 
 // Redux store
-import { store } from "./store";
+import { store } from "../store";
 
 // Navigation
-import AppStack from "./navigation/AppStack";
+import AppStack from "../navigation/AppStack";
 
 // Variables
-import ignoreLogsMessages from "./themes/ignore-logs-messages";
+import { ignoreLogsMessages } from "../environment/theme/Variables";
 
 const App = () => {
   return (

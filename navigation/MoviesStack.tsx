@@ -1,9 +1,6 @@
 // Standard packages
 import { DrawerActions } from "@react-navigation/native";
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 
@@ -15,7 +12,7 @@ import {
   addMovieToFavorites,
   removeMovieFromFavorites,
   signOutUser,
-} from "../firebase/firebase-methods";
+} from "../environment/firebase/firebase-methods";
 
 // Screens
 import Authentication from "../screens/Authentication/Authentication";
@@ -37,11 +34,6 @@ export type MoviesStackParamsList = {
   Movies: undefined;
   MovieDetails: undefined;
 };
-
-type MoviesStackScreenProp = NativeStackNavigationProp<
-  MoviesStackParamsList,
-  "Movies"
->;
 
 const Stack = createNativeStackNavigator<MoviesStackParamsList>();
 
@@ -71,18 +63,6 @@ export const MoviesStack = () => {
 
   const userIsAuthenticated = Object.keys(authenticatedUser).length > 0;
 
-  const goBackHandler = (navigation: MoviesStackScreenProp) => {
-    navigation.goBack();
-  };
-
-  const loginRedirectHandler = (navigation: MoviesStackScreenProp) => {
-    navigation.navigate("Authentication");
-  };
-
-  const openDrawerHandler = (navigation: MoviesStackScreenProp) => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
-
   return (
     <Stack.Navigator initialRouteName="Movies">
       <Stack.Screen
@@ -93,7 +73,7 @@ export const MoviesStack = () => {
             <CustomHeader
               headerLeft={{
                 iconName: "arrow-back",
-                onPress: () => goBackHandler(navigation),
+                onPress: () => navigation.goBack(),
               }}
               title="Authentication"
             />
@@ -108,13 +88,13 @@ export const MoviesStack = () => {
             <CustomHeader
               headerLeft={{
                 iconName: "menu",
-                onPress: () => openDrawerHandler(navigation),
+                onPress: () => navigation.dispatch(DrawerActions.openDrawer()),
               }}
               headerRight={{
                 iconName: userIsAuthenticated ? "logout" : "login",
                 onPress: () => {
                   if (!userIsAuthenticated) {
-                    loginRedirectHandler(navigation);
+                    navigation.navigate("Authentication");
                   } else {
                     signOutUser({ dispatch });
                   }
@@ -132,33 +112,35 @@ export const MoviesStack = () => {
             <CustomHeader
               headerLeft={{
                 iconName: "arrow-back",
-                onPress: () => goBackHandler(navigation),
+                onPress: () => navigation.goBack(),
               }}
               headerRight={{
                 iconName: starIcon,
                 onPress: () => {
-                  if (userIsAuthenticated) {
-                    if (!movieIsAddedToFavorites) {
-                      addMovieToFavorites({
-                        movieId: selectedMovie.id,
-                        onSuccess: () =>
-                          setMovieIsAddedToFavorites(
-                            (previousValue) => !previousValue
-                          ),
-                        userId: authenticatedUser.id,
-                      });
-                    } else {
-                      removeMovieFromFavorites({
-                        movieId: selectedMovie.id,
-                        onSuccess: () =>
-                          setMovieIsAddedToFavorites(
-                            (previousValue) => !previousValue
-                          ),
-                        userId: authenticatedUser.id,
-                      });
-                    }
-                  } else {
-                    loginRedirectHandler(navigation);
+                  if (userIsAuthenticated && !movieIsAddedToFavorites) {
+                    addMovieToFavorites({
+                      movieId: selectedMovie.id,
+                      onSuccess: () =>
+                        setMovieIsAddedToFavorites(
+                          (previousValue) => !previousValue
+                        ),
+                      userId: authenticatedUser.id,
+                    });
+                  }
+
+                  if (userIsAuthenticated && movieIsAddedToFavorites) {
+                    removeMovieFromFavorites({
+                      movieId: selectedMovie.id,
+                      onSuccess: () =>
+                        setMovieIsAddedToFavorites(
+                          (previousValue) => !previousValue
+                        ),
+                      userId: authenticatedUser.id,
+                    });
+                  }
+
+                  if (!userIsAuthenticated) {
+                    navigation.navigate("Authentication");
                   }
                 },
               }}

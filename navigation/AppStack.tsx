@@ -24,7 +24,7 @@ export const AppStack = () => {
 
   useEffect(() => {
     dispatch(fetchAuthenticatedUser());
-  }, [dispatch]);
+  }, [dispatch, fetchAuthenticatedUser]);
 
   return (
     <Stack.Navigator

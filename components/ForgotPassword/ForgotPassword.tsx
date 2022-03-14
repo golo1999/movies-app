@@ -4,7 +4,7 @@ import React from "react";
 import { GestureResponderEvent, Text, View } from "react-native";
 
 // Firebase
-import { resetPassword } from "../../firebase/firebase-methods";
+import { resetPassword } from "../../environment/firebase/firebase-methods";
 
 // Components
 import CustomButton from "../Button/Button";
@@ -14,6 +14,9 @@ import { CustomText } from "../Text/Text";
 // Validation
 import { forgotPasswordSchema } from "../../validation/forgot-password-validation";
 
+// Colors
+import COLORS from "../../environment/theme/Colors";
+
 // Variables
 import {
   authenticationButtonStyle,
@@ -21,8 +24,7 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
-  COLORS,
-} from "../../themes/variables";
+} from "../../environment/theme/Variables";
 
 // Stylings
 import globalStyles from "../../styles/global-styles";

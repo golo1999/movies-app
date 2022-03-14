@@ -5,8 +5,8 @@ import { ref, set } from "firebase/database";
 import Toast from "react-native-toast-message";
 
 // Models
-import { Movie } from "../models/Movie";
-import { User } from "../models/User";
+import { Movie } from "../../models/Movie";
+import { User } from "../../models/User";
 
 // Firebase
 import { db } from "../firebase/firebase";

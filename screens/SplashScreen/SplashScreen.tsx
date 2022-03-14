@@ -8,8 +8,11 @@ import { Icon } from "react-native-elements";
 // Navigation
 import { AppStackParamsList } from "../../navigation/AppStack";
 
+// Colors
+import COLORS from "../../environment/theme/Colors";
+
 // Variables
-import { APP_NAME as appName, COLORS } from "../../themes/variables";
+import { APP_NAME as appName } from "../../environment/theme/Variables";
 
 // Stylings
 import { styles } from "./SplashScreen.styles";

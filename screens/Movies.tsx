@@ -14,7 +14,7 @@ import MoviesList from "../components/MoviesList/MoviesList";
 import { Movie } from "../models/Movie";
 
 // Variables
-import { MOVIES_LIST_URL as moviesListURL } from "../themes/variables";
+import { MOVIES_LIST_URL as moviesListURL } from "../environment/theme/Variables";
 
 const Movies = () => {
   const [numberOfMovies, setNumberOfMovies] = useState(-1);
@@ -35,7 +35,9 @@ const Movies = () => {
       })
       .then((response) =>
         response.data
-          ? (Object.values(response.data.data.movies) as Movie[]).length
+          ? (Object.values(response.data.data.movies) as Movie[]).filter(
+              (movie) => movie.title
+            ).length
           : 0
       )
       .then((moviesListLength) => {

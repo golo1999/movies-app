@@ -8,7 +8,7 @@ import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 
 // Variables
-import { APP_NAME as appName } from "../../themes/variables";
+import { APP_NAME as appName } from "../../environment/theme/Variables";
 
 // Stylings
 import { styles } from "./Authentication.styles";

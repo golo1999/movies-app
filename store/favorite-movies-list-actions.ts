@@ -9,7 +9,7 @@ import { favoriteMoviesListActions } from "./favorite-movies-list-slice";
 import { Movie } from "../models/Movie";
 
 // Variables
-import { MOVIE_DETAILS_URL as movieDetailsURL } from "../themes/variables";
+import { MOVIE_DETAILS_URL as movieDetailsURL } from "../environment/theme/Variables";
 
 export const checkIfMovieIsAddedToFavorites = async (
   databaseURL: string,

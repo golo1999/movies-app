@@ -14,7 +14,7 @@ import {
 import { Movie } from "../../models/Movie";
 
 // Variables
-import { COLORS } from "../../themes/variables";
+import COLORS from "../../environment/theme/Colors";
 
 // Stylings
 import { styles as moviesListItemStyles } from "./MoviesListItem.styles";

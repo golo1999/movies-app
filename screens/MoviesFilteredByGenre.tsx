@@ -10,7 +10,7 @@ import MoviesList from "../components/MoviesList/MoviesList";
 import { Movie } from "../models/Movie";
 
 // Methods
-import { getMoviesListByGenre } from "../themes/methods";
+import { getMoviesListByGenre } from "../environment/theme/Methods";
 
 const MoviesFilteredByGenre = () => {
   const route = useRoute<RouteProp<{ params: { genre: string } }>>();

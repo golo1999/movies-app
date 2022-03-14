@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { MoviesStackParamsList } from "../../navigation/MoviesStack";
 
 // Firebase
-import { authenticateUser } from "../../firebase/firebase-methods";
+import { authenticateUser } from "../../environment/firebase/firebase-methods";
 
 // Components
 import CustomButton from "../Button/Button";
@@ -20,6 +20,9 @@ import { CustomText } from "../Text/Text";
 // Validation
 import { loginSchema } from "../../validation/login-validation";
 
+// Colors
+import COLORS from "../../environment/theme/Colors";
+
 // Variables
 import {
   authenticationButtonStyle,
@@ -27,8 +30,7 @@ import {
   authenticationInputStyle,
   authenticationInputTextStyle,
   authenticationRedirectTextStyle,
-  COLORS,
-} from "../../themes/variables";
+} from "../../environment/theme/Variables";
 
 // Stylings
 import globalStyles from "../../styles/global-styles";

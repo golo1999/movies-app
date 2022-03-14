@@ -1,9 +1,6 @@
 // Standard packages
 import { DrawerActions } from "@react-navigation/native";
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
 
@@ -14,7 +11,7 @@ import { checkIfMovieIsAddedToFavorites } from "../store/favorite-movies-list-ac
 import {
   addMovieToFavorites,
   removeMovieFromFavorites,
-} from "../firebase/firebase-methods";
+} from "../environment/firebase/firebase-methods";
 
 // Screens
 import FavoriteMovies from "../screens/FavoriteMovies";
@@ -34,11 +31,6 @@ export type FavoriteMoviesStackParamsList = {
   FavoriteMovies: undefined;
   MovieDetails: undefined;
 };
-
-type FavoriteMoviesStackScreenProp = NativeStackNavigationProp<
-  FavoriteMoviesStackParamsList,
-  "FavoriteMovies"
->;
 
 const Stack = createNativeStackNavigator<FavoriteMoviesStackParamsList>();
 
@@ -64,14 +56,6 @@ const FavoriteMoviesStack = () => {
 
   const starIcon = movieIsAddedToFavorites ? "star" : "star-outline";
 
-  const goBackHandler = (navigation: FavoriteMoviesStackScreenProp) => {
-    navigation.goBack();
-  };
-
-  const openDrawerHandler = (navigation: FavoriteMoviesStackScreenProp) => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
-
   return (
     <Stack.Navigator initialRouteName="FavoriteMovies">
       <Stack.Screen
@@ -82,7 +66,7 @@ const FavoriteMoviesStack = () => {
             <CustomHeader
               headerLeft={{
                 iconName: "menu",
-                onPress: () => openDrawerHandler(navigation),
+                onPress: () => navigation.dispatch(DrawerActions.openDrawer()),
               }}
               title="Favorite movies"
             />
@@ -96,7 +80,7 @@ const FavoriteMoviesStack = () => {
             <CustomHeader
               headerLeft={{
                 iconName: "arrow-back",
-                onPress: () => goBackHandler(navigation),
+                onPress: () => navigation.goBack(),
               }}
               headerRight={{
                 iconName: starIcon,
@@ -110,7 +94,9 @@ const FavoriteMoviesStack = () => {
                         ),
                       userId: authenticatedUser.id,
                     });
-                  } else {
+                  }
+
+                  if (!movieIsAddedToFavorites) {
                     addMovieToFavorites({
                       movieId: selectedMovie.id,
                       onSuccess: () =>

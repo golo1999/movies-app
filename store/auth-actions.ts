@@ -7,7 +7,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { authActions } from "./auth-slice";
 
 // Firebase
-import { auth, db } from "../firebase/firebase";
+import { auth, db } from "../environment/firebase/firebase";
 
 // Models
 import { User } from "../models/User";
